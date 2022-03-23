@@ -35,47 +35,66 @@ namespace Arches
             }
             DataContext = this;
             listbox.ItemsSource = items;
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = "TextBlock text...";
-            stackPanel.Children.Add(textBlock);
+      
         }
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var ellipse = (Ellipse)sender;
             var name = ellipse.Name.Substring(7);
-            selectedToothName = name;
-            selectedTeeth.Add(name, new List<string>());
+            selectedToothName = "t" + name;
+            selectedTeeth.Add(selectedToothName, new List<string>());
             string strUri = String.Format("/dental_arches/{0}a.png", name);
             archImage.Source = new BitmapImage(new Uri(strUri, UriKind.Relative));
         }
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
         {
-            var selected = sender.ToString();
-            if (!String.IsNullOrEmpty(selectedToothName) && selectedTeeth.ContainsKey(selectedToothName)
-                    && !String.IsNullOrEmpty(selected))
-            {
-                selectedTeeth[selectedToothName].Add(selected);
-                
-                TextBlock textBlock = new TextBlock();
-                textBlock.Name = selectedToothName;
-                textBlock.Text = selectedToothName + "\n";
-                foreach (var item in selectedTeeth[selectedToothName])
-                {
-                    textBlock.Text += " - " + item + "\n";
+            var selected = listbox.SelectedItems;
+            if (!String.IsNullOrEmpty(selectedToothName) && selectedTeeth.ContainsKey(selectedToothName)){
+                selectedTeeth[selectedToothName].Clear();
+                for (int i = 0; i < selected.Count; i++) {
+                    selectedTeeth[selectedToothName].Add(selected[i].ToString());
                 }
-                for(int i = 0; i < stackPanel.Children.Count; i++)
-                {
-                    var child = (TextBlock) stackPanel.Children[i];
-                    if (child.Name == selectedToothName)
-                    {
+                var textBlock = makeTextBlock();
+                placeTextBlock(textBlock);
+            }
+            //else if(selected.Count == 0){
+            //    selectedTeeth[selectedToothName].Clear();
 
-                    }
+            //}
+
+        }
+
+        void placeTextBlock(TextBlock textBlock)
+        {
+            int existingTextBlockIndex = -1;
+            for (int i = 0; i < stackPanel.Children.Count; i++)
+            {
+                var existingTextBlock = (TextBlock)stackPanel.Children[i];
+                if (existingTextBlock.Name == selectedToothName)
+                {
+                    existingTextBlockIndex = i;
                 }
             }
+            if (existingTextBlockIndex != -1)
+            {
+                stackPanel.Children.RemoveAt(existingTextBlockIndex);
+            }
+            stackPanel.Children.Add(textBlock);
+        }
 
-            
+        TextBlock makeTextBlock()
+        {
+            TextBlock textBlock = new TextBlock();
+            textBlock.Name = selectedToothName;
+            textBlock.Text = "Ząb nr " + selectedToothName.Substring(1) + "\n";
+
+            foreach (var item in selectedTeeth[selectedToothName])
+            {
+                textBlock.Text += " - " + item + "\n";
+            }
+            return textBlock;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
@@ -105,7 +124,5 @@ namespace Arches
                 textBoxNewListItem.Text = "";
             }
         }
-
-       
     }
 }
