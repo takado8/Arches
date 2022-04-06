@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Arches"
         mc:Ignorable="d"
         Title="Arches" Height="564" Width="928"
-        Background="WhiteSmoke" WindowStartupLocation="CenterScreen"
+        Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,16 +17,8 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="2">
             <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" />
-            <Ellipse x:Name="ellipse11" Cursor="Hand" Fill="Transparent" HorizontalAlignment="Left" Height="31"  Stroke="Transparent" VerticalAlignment="Top" Width="35" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="113,49,0,0">
-                <Ellipse.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-36.38"/>
-                        <TranslateTransform X="-0.055" Y="5.42"/>
-                    </TransformGroup>
-                </Ellipse.RenderTransform>
-            </Ellipse>
+            <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="96,56,0,0"/>
+            <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="126,42,0,0"/>
         </Grid>
         <ListBox x:Name="listbox" Grid.Column="0" SelectionChanged="listbox_Selected" SelectionMode="Multiple" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
         <TextBox x:Name="textBoxNewListItem" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,58" TextWrapping="Wrap" Text="Nowy zabieg..." VerticalAlignment="Bottom" Width="264" Height="30" FontSize="16" Grid.ColumnSpan="2" GotFocus="textBoxNewListItem_GotFocus"/>
