@@ -22,15 +22,15 @@ namespace Arches
     /// </summary>
     public partial class MainWindow : Window
     {
-        TreatmentsViewModel treatmentsViewModel;
+        TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            treatmentsViewModel = new TreatmentsViewModel();
+            treatmentsListViewModel = new TreatmentsListViewModel();
             treatmentPlanViewModel = new TreatmentPlanViewModel(stackPanel);
-            listbox.ItemsSource = treatmentsViewModel.items;
+            listbox.ItemsSource = treatmentsListViewModel.items;
         }
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -44,13 +44,13 @@ namespace Arches
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
         {
-            treatmentPlanViewModel.updateTreatment(listbox.SelectedItems);
+            treatmentPlanViewModel.updateTreatmentPlan(listbox.SelectedItems);
         }
        
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             string newItem = textBoxNewListItem.Text;
-            bool result = treatmentsViewModel.addItem(newItem);
+            bool result = treatmentsListViewModel.addItem(newItem);
             if (result)
             {
                 textBoxNewListItem.Text = "";
@@ -60,7 +60,7 @@ namespace Arches
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = listbox.SelectedItem;
-            treatmentsViewModel.deleteItem(selectedItem);
+            treatmentsListViewModel.deleteItem(selectedItem);
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
