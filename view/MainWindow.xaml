@@ -15,6 +15,17 @@
             <ColumnDefinition Width="309*"></ColumnDefinition>
             <ColumnDefinition Width="309*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" Click="MenuItemSave_Click"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+            </Menu>
+         
         <Grid Grid.Column="2">
             <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" />
             <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="96,56,0,0"/>

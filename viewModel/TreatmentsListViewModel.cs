@@ -49,6 +49,5 @@ namespace Arches.viewModel
                 items.Remove(txtBlock);
             }
         }
-        
     }
 }

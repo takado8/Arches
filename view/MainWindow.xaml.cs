@@ -1,4 +1,6 @@
-﻿using Arches.viewModel;
+﻿using Arches.service;
+using Arches.view;
+using Arches.viewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -69,6 +71,13 @@ namespace Arches
             {
                 textBoxNewListItem.Text = "";
             }
+        }
+
+        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
+        {
+            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan());
+            MessageBox.Show("Image saved.");
+
         }
     }
 }

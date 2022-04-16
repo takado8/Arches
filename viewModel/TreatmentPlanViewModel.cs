@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Arches.view;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -33,9 +35,18 @@ namespace Arches.viewModel
                         selectedTeeth[selectedToothCode].Add(treatment.Text);
                     }
                 }
-                var textBlock = makeTextBlock();
-                placeTextBlock(textBlock);
+                var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeeth);
+                
+                stackPanel.Children.Clear();
+                stackPanel.Children.Add(treatmentPlan);
+                //var textBlock = makeTextBlock();
+                //placeTextBlock(textBlock);
             }
+        }
+
+        public FlowDocumentScrollViewer getTreatmentPlan()
+        {
+            return (FlowDocumentScrollViewer)stackPanel.Children[0];
         }
 
         public void selectTooth(Ellipse ellipse, string toothCode)
