@@ -16,7 +16,7 @@ namespace Arches.service
     {
         internal static void saveTreatmentPlanAsImage(FlowDocumentScrollViewer flowDocumentViewer, Grid archImage)
         {
-            var doc = flowDocumentViewer.Document;
+            //var doc = flowDocumentViewer.Document;
             //var bitMap = TreatmentPlanConverter.FlowDocumentToBitmap(doc, new Size(flowDocumentViewer.ActualWidth, flowDocumentViewer.ActualHeight));
             var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(new List<FrameworkElement>() { archImage, flowDocumentViewer });
             

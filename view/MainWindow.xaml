@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arches"
         mc:Ignorable="d"
-        Title="Arches" Height="564" Width="928"
+        Title="Arches" Height="564" Width="1085"
         Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         >
     <Grid>
@@ -15,27 +15,27 @@
             <ColumnDefinition Width="309*"></ColumnDefinition>
             <ColumnDefinition Width="309*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" Click="MenuItemSave_Click"/>
-                    <Separator />
-                    <MenuItem Header="_Exit" />
-                </MenuItem>
-            </Menu>
-         
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" Click="MenuItemSave_Click"/>
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
+        </Menu>
+
         <Grid x:Name="imageGrid" Grid.Column="2">
-            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" />
-            <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="96,56,0,0"/>
-            <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="126,42,0,0"/>
+            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" Margin="-73,0,51,0" />
+            <Ellipse x:Name="ellipse12" Fill="Green" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="57,36,0,0"/>
+            <Ellipse x:Name="ellipse11" Fill="Green" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="88,20,0,0"/>
         </Grid>
         <ListBox x:Name="listbox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="listbox_Selected" SelectionMode="Multiple" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
         <TextBox x:Name="textBoxNewListItem" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,58" TextWrapping="Wrap" Text="Nowy zabieg..." VerticalAlignment="Bottom" Width="264" Height="30" FontSize="16" Grid.ColumnSpan="2" GotFocus="textBoxNewListItem_GotFocus"/>
         <Button x:Name="buttonAdd" Content="Dodaj do listy" Margin="10,0,136,20" VerticalAlignment="Bottom" IsCancel="True" Height="30"  FontSize="14" Click="buttonAdd_Click"/>
         <Button x:Name="buttonDelete" Content="Usuń" HorizontalAlignment="Left" Margin="178,0,0,20" VerticalAlignment="Bottom" IsCancel="True" Height="30" Width="96" Click="buttonDelete_Click" Grid.ColumnSpan="2" FontSize="14"/>
-        <Border BorderThickness="0.5" BorderBrush="#666666" Grid.Column="3" Margin="33,32,34,29">
+        <Border BorderThickness="0.5" BorderBrush="#666666" Grid.Column="2" Margin="318,32,34,29" Grid.ColumnSpan="2">
             <StackPanel x:Name="stackPanel" Background="White"/>
         </Border>
     </Grid>
