@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Arches.service
 {
@@ -49,6 +50,43 @@ namespace Arches.service
             }
 
             return copy;
+        }
+
+        internal static BitmapSource mergeUIElementsToImg(List<FrameworkElement> elements)
+        {
+            double totalWidth = elements.Sum(element => element.ActualWidth);
+            double totalHeight = elements.MaxBy(element => element.ActualHeight).ActualHeight;
+
+            var size = new Size(totalWidth, totalHeight);
+            var rectangleFrame = new Rectangle
+            {
+                Width = (int)size.Width,
+                Height = (int)size.Height,
+                Fill = Brushes.White
+            };
+
+            rectangleFrame.Arrange(new Rect(size));
+            var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96d, 96d, PixelFormats.Pbgra32);
+            renderBitmap.Render(rectangleFrame);
+
+            var xPointCordinate = 0.0;
+            elements.ForEach(element =>
+            {
+                var drawingContext = new DrawingVisual();
+
+                using (DrawingContext draw = drawingContext.RenderOpen())
+                {
+                    var visualBrush = new VisualBrush(element);
+                    var elementSize = new Size(element.ActualWidth, element.ActualHeight);
+                    draw.DrawRectangle(visualBrush, null, new Rect(new Point(xPointCordinate, 0), elementSize));
+                }
+
+                xPointCordinate += element.ActualWidth;
+                renderBitmap.Render(drawingContext);
+            });
+
+            //Clipboard.SetImage(renderBitmap);
+            return renderBitmap;
         }
     }
 }

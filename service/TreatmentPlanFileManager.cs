@@ -6,16 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Arches.service
 {
     internal static class TreatmentPlanFileManager
     {
-        internal static void saveTreatmentPlanAsImage(FlowDocumentScrollViewer flowDocumentViewer)
+        internal static void saveTreatmentPlanAsImage(FlowDocumentScrollViewer flowDocumentViewer, Grid archImage)
         {
             var doc = flowDocumentViewer.Document;
-            var bitMap = TreatmentPlanConverter.FlowDocumentToBitmap(doc, new Size(flowDocumentViewer.ActualWidth, flowDocumentViewer.ActualHeight));
+            //var bitMap = TreatmentPlanConverter.FlowDocumentToBitmap(doc, new Size(flowDocumentViewer.ActualWidth, flowDocumentViewer.ActualHeight));
+            var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(new List<FrameworkElement>() { archImage, flowDocumentViewer });
+            
+            
             var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitMap));
             
@@ -24,5 +29,7 @@ namespace Arches.service
                 encoder.Save(stream);
             }
         }
+
+        
     }
 }

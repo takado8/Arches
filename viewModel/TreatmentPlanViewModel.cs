@@ -36,17 +36,14 @@ namespace Arches.viewModel
                     }
                 }
                 var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeeth);
-                
                 stackPanel.Children.Clear();
                 stackPanel.Children.Add(treatmentPlan);
-                //var textBlock = makeTextBlock();
-                //placeTextBlock(textBlock);
             }
         }
 
         public FlowDocumentScrollViewer getTreatmentPlan()
         {
-            return (FlowDocumentScrollViewer)stackPanel.Children[0];
+            return stackPanel.Children.Count > 0 ? (FlowDocumentScrollViewer)stackPanel.Children[0] : new FlowDocumentScrollViewer();
         }
 
         public void selectTooth(Ellipse ellipse, string toothCode)
@@ -56,7 +53,6 @@ namespace Arches.viewModel
                 ellipse.Fill = new SolidColorBrush(Colors.Transparent);
                 selectedToothCode = "";
                 selectedTeeth.Remove(toothCode);
-
             }
             else
             {
@@ -65,43 +61,5 @@ namespace Arches.viewModel
                 selectedToothCode = toothCode;
             }
         }
-
-        void deleteTextBlock(string toothCode)
-        {
-            int existingTextBlockIndex = -1;
-            for (int i = 0; i < stackPanel.Children.Count; i++)
-            {
-                var existingTextBlock = (TextBlock)stackPanel.Children[i];
-                if (existingTextBlock.Name.Equals(toothCode))
-                {
-                    existingTextBlockIndex = i;
-                }
-            }
-            if (existingTextBlockIndex != -1)
-            {
-                stackPanel.Children.RemoveAt(existingTextBlockIndex);
-            }
-        }
-
-        void placeTextBlock(TextBlock textBlock)
-        {
-            deleteTextBlock(textBlock.Name);
-            stackPanel.Children.Add(textBlock);
-        }
-
-        TextBlock makeTextBlock()
-        {
-            TextBlock textBlock = new TextBlock();
-            textBlock.TextWrapping = System.Windows.TextWrapping.Wrap;
-            textBlock.Name = selectedToothCode;
-            textBlock.Text = "Ząb nr " + selectedToothCode.Substring(1) + "\n";
-
-            foreach (var item in selectedTeeth[selectedToothCode])
-            {
-                textBlock.Text += " - " + item + "\n";
-            }
-            return textBlock;
-        }
-
     }
 }

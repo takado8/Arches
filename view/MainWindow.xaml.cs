@@ -75,9 +75,8 @@ namespace Arches
 
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
         {
-            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan());
+            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(), imageGrid);
             MessageBox.Show("Image saved.");
-
         }
     }
 }
