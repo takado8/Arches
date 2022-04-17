@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,10 +54,11 @@ namespace Arches.service
             return copy;
         }
 
-        internal static BitmapSource mergeUIElementsToImg(List<FrameworkElement> elements)
+        internal static BitmapSource mergeUIElementsToImg(params FrameworkElement[] elements)
         {
-            double totalWidth =3 * elements.Sum(element => element.ActualWidth);
-            double totalHeight =3* elements.MaxBy(element => element.ActualHeight).ActualHeight;
+            double size_multiplier = 1.5;
+            double totalWidth = size_multiplier * elements.Sum(element => element.ActualWidth);
+            double totalHeight = size_multiplier * elements.MaxBy(element => element.ActualHeight).ActualHeight;
             var size = new Size(totalWidth, totalHeight);
             var rectangleFrame = new Rectangle
             {
@@ -69,22 +72,21 @@ namespace Arches.service
             renderBitmap.Render(rectangleFrame);
 
             var xPointCordinate = 0.0;
-            elements.ForEach(element =>
+
+            foreach(var element in elements)
             {
                 var drawingContext = new DrawingVisual();
 
                 using (DrawingContext draw = drawingContext.RenderOpen())
                 {
                     var visualBrush = new VisualBrush(element);
-                    var elementSize = new Size(3*element.ActualWidth,3* element.ActualHeight);
+                    var elementSize = new Size(size_multiplier * element.ActualWidth, size_multiplier * element.ActualHeight);
                     draw.DrawRectangle(visualBrush, null, new Rect(new Point(xPointCordinate, 0), elementSize));
                 }
 
-                xPointCordinate +=3* element.ActualWidth;
+                xPointCordinate += size_multiplier * element.ActualWidth;
                 renderBitmap.Render(drawingContext);
-            });
-
-            //Clipboard.SetImage(renderBitmap);
+            }
             return renderBitmap;
         }
     }

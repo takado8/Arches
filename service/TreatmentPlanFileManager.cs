@@ -16,20 +16,14 @@ namespace Arches.service
     {
         internal static void saveTreatmentPlanAsImage(FlowDocumentScrollViewer flowDocumentViewer, Grid archImage)
         {
-            //var doc = flowDocumentViewer.Document;
-            //var bitMap = TreatmentPlanConverter.FlowDocumentToBitmap(doc, new Size(flowDocumentViewer.ActualWidth, flowDocumentViewer.ActualHeight));
-            var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(new List<FrameworkElement>() { archImage, flowDocumentViewer });
-            
-            
+            var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(archImage, flowDocumentViewer);            
             var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitMap));
-            
+           
             using (var stream = new FileStream("doc.jpg", FileMode.Create))
             {
                 encoder.Save(stream);
             }
         }
-
-        
     }
 }
