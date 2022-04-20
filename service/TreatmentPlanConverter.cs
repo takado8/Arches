@@ -20,10 +20,8 @@ namespace Arches.service
         internal static BitmapSource FlowDocumentToBitmap(FlowDocument document, Size size)
         {
             document = CloneDocument(document);
-
             var paginator = ((IDocumentPaginatorSource)document).DocumentPaginator;
             paginator.PageSize = size;
-
             var visual = new DrawingVisual();
             using (var drawingContext = visual.RenderOpen())
             {
@@ -31,11 +29,8 @@ namespace Arches.service
                 drawingContext.DrawRectangle(Brushes.White, null, new Rect(size));
             }
             visual.Children.Add(paginator.GetPage(0).Visual);
-
-            var bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height,
-                                                96, 96, PixelFormats.Pbgra32);
+            var bitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
             bitmap.Render(visual);
-           
             return bitmap;
         }
 
@@ -50,7 +45,6 @@ namespace Arches.service
                 sourceRange.Save(stream, DataFormats.XamlPackage);
                 targetRange.Load(stream, DataFormats.XamlPackage);
             }
-
             return copy;
         }
 
@@ -66,13 +60,10 @@ namespace Arches.service
                 Height = (int)size.Height,
                 Fill = Brushes.White
             };
-
             rectangleFrame.Arrange(new Rect(size));
             var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
             renderBitmap.Render(rectangleFrame);
-
             var xPointCordinate = 0.0;
-
             foreach(var element in elements)
             {
                 var drawingContext = new DrawingVisual();
@@ -83,7 +74,6 @@ namespace Arches.service
                     var elementSize = new Size(size_multiplier * element.ActualWidth, size_multiplier * element.ActualHeight);
                     draw.DrawRectangle(visualBrush, null, new Rect(new Point(xPointCordinate, 0), elementSize));
                 }
-
                 xPointCordinate += size_multiplier * element.ActualWidth;
                 renderBitmap.Render(drawingContext);
             }

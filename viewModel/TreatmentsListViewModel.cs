@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-
+using System.Windows;
 
 namespace Arches.viewModel
 {
@@ -40,13 +40,19 @@ namespace Arches.viewModel
             return true;
         }
 
-        public void deleteItem(Object item)
+        public void deleteItems(System.Collections.IList itemsToDelete)
         {
-            if (item != null)
+            if (itemsToDelete != null && itemsToDelete.Count > 0)
             {
-                //var selectedString = item.ToString();
-                TextBlock txtBlock = (TextBlock)item;
-                items.Remove(txtBlock);
+                while(itemsToDelete.Count > 0)
+                {
+                    var item = itemsToDelete[0];
+                    if (item != null)
+                    {
+                        TextBlock txtBlock = (TextBlock)item;
+                        items.Remove(txtBlock);
+                    }
+                }
             }
         }
     }

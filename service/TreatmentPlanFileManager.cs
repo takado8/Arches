@@ -19,7 +19,6 @@ namespace Arches.service
             var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(archImage, flowDocumentViewer);            
             var encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(bitMap));
-           
             using (var stream = new FileStream("doc.jpg", FileMode.Create))
             {
                 encoder.Save(stream);

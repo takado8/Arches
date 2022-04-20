@@ -26,6 +26,7 @@ namespace Arches
     {
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
+        bool lockListboxSelectedEvent = false;
 
         public MainWindow()
         {
@@ -38,18 +39,36 @@ namespace Arches
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var ellipse = (Ellipse)sender;
-            var name = ellipse.Name.Substring(7);
-            var toothCode = "t" + name;
-
-            treatmentPlanViewModel.selectTooth(ellipse, toothCode);
+            treatmentPlanViewModel.selectTooth(ellipse);
+            lockListboxSelectedEvent = true;
+            listbox.SelectedItems.Clear();
+            lockListboxSelectedEvent = false;
+            var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
+            if (treatments != null)
+            {
+                //MessageBox.Show(treatments.Count.ToString());
+                lockListboxSelectedEvent = true;
+                foreach (var treatment in treatments)
+                {
+                    //MessageBox.Show(treatment.Text);
+                    listbox.SelectedItems.Add(treatment);
+                }
+                lockListboxSelectedEvent = false;
+            }
+            //else
+            //{
+            //    MessageBox.Show("null");
+            //}
+            
         }
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
         {
-            treatmentPlanViewModel.updateTreatmentPlan(listbox.SelectedItems);
+            if (lockListboxSelectedEvent) return;
+            treatmentPlanViewModel.updateTreatmentsForSelectedTooth(listbox.SelectedItems);
         }
        
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        private void addTreatmentToList()
         {
             string newItem = textBoxNewListItem.Text;
             bool result = treatmentsListViewModel.addItem(newItem);
@@ -59,10 +78,15 @@ namespace Arches
             }
         }
 
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            addTreatmentToList();
+        }
+
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            var selectedItem = listbox.SelectedItem;
-            treatmentsListViewModel.deleteItem(selectedItem);
+            var selectedItems = listbox.SelectedItems;
+            treatmentsListViewModel.deleteItems(selectedItems);
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
@@ -77,6 +101,14 @@ namespace Arches
         {
             TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(), imageGrid);
             MessageBox.Show("Image saved.");
+        }
+
+        private void textBoxNewListItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                addTreatmentToList();
+            }
         }
     }
 }
