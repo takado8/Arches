@@ -30,28 +30,25 @@ namespace Arches.viewModel
             }
             foreach (TextBlock item in items)
             {
-                if (item.Text == newItem)
+                if (item.Text.Equals(newItem))
                 {
                     return false;
                 }
             }
-            var txtBlock = new TextBlock() { Text = newItem, TextWrapping = System.Windows.TextWrapping.Wrap }; 
+            var txtBlock = new TextBlock() { Text = newItem, TextWrapping = TextWrapping.Wrap }; 
             items.Add(txtBlock);
             return true;
         }
 
         public void deleteItems(System.Collections.IList itemsToDelete)
         {
-            if (itemsToDelete != null && itemsToDelete.Count > 0)
+            while(itemsToDelete.Count > 0)
             {
-                while(itemsToDelete.Count > 0)
+                var item = itemsToDelete[0];
+                if (item != null)
                 {
-                    var item = itemsToDelete[0];
-                    if (item != null)
-                    {
-                        TextBlock txtBlock = (TextBlock)item;
-                        items.Remove(txtBlock);
-                    }
+                    TextBlock txtBlock = (TextBlock)item;
+                    items.Remove(txtBlock);
                 }
             }
         }

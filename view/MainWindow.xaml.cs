@@ -40,26 +40,15 @@ namespace Arches
         {
             var ellipse = (Ellipse)sender;
             treatmentPlanViewModel.selectTooth(ellipse);
+
+            var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
             lockListboxSelectedEvent = true;
             listbox.SelectedItems.Clear();
-            lockListboxSelectedEvent = false;
-            var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
-            if (treatments != null)
+            foreach (var treatment in treatments)
             {
-                //MessageBox.Show(treatments.Count.ToString());
-                lockListboxSelectedEvent = true;
-                foreach (var treatment in treatments)
-                {
-                    //MessageBox.Show(treatment.Text);
-                    listbox.SelectedItems.Add(treatment);
-                }
-                lockListboxSelectedEvent = false;
+                listbox.SelectedItems.Add(treatment);
             }
-            //else
-            //{
-            //    MessageBox.Show("null");
-            //}
-            
+            lockListboxSelectedEvent = false;
         }
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
@@ -91,7 +80,7 @@ namespace Arches
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(textBoxNewListItem.Text == Constants.textBoxPlaceholder)
+            if(textBoxNewListItem.Text.Equals(Constants.textBoxPlaceholder))
             {
                 textBoxNewListItem.Text = "";
             }

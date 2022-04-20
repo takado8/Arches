@@ -54,15 +54,15 @@ namespace Arches.viewModel
             }
         }
 
-        public List<TextBlock>? getSelectedToothTreatmentsList()
+        public List<TextBlock> getSelectedToothTreatmentsList()
         {
-            //MessageBox.Show(selectedToothCode);
             if (teethTreatmentsList.ContainsKey(selectedToothCode))
             {
                 return teethTreatmentsList[selectedToothCode];
             }
-            return null;
+            return new List<TextBlock>();
         }
+
         private void updateTreatmentPlan()
         {
             Dictionary<string, List<string>> selectedTeethDescriptionsFiltered = new();
@@ -73,11 +73,6 @@ namespace Arches.viewModel
             var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
             stackPanel.Children.Clear();
             stackPanel.Children.Add(treatmentPlan);
-            //MessageBox.Show("list count: " + teethTreatmentsList.Count.ToString());
-            //foreach(var toothcode in teethTreatmentsList)
-            //{
-            //    MessageBox.Show(toothcode.Key);
-            //}
         }
 
         public FlowDocumentScrollViewer getTreatmentPlan()
