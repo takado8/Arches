@@ -60,7 +60,8 @@ namespace Arches
         private void addTreatmentToList()
         {
             string newItem = textBoxNewListItem.Text;
-            bool result = treatmentsListViewModel.addItem(newItem);
+            var result = treatmentsListViewModel.addItem(newItem);
+
             if (result)
             {
                 textBoxNewListItem.Text = "";

@@ -6,37 +6,43 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows;
+using Arches.model;
+using Arches.service;
 
 namespace Arches.viewModel
 {
     internal class TreatmentsListViewModel
     {
-        public ObservableCollection<TextBlock> items { get; } = new ObservableCollection<TextBlock>();
+        public ObservableCollection<TextBlock> items { get; } = new();
+        private SQLiteDataStorage sqliteDataStorage = new();
 
         public TreatmentsListViewModel()
         {
-            for (int i = 0; i < 10; i++)
+            var itemsFromDb = sqliteDataStorage.getItems();
+            foreach (var item in itemsFromDb)
             {
-                var txtBlock = new TextBlock() { Text = "list item " + i.ToString(), TextWrapping = System.Windows.TextWrapping.Wrap };
+                var txtBlock = new TextBlock() { Text = item.description, TextWrapping = TextWrapping.Wrap };
                 items.Add(txtBlock);
             }
         }
 
-        public bool addItem(string newItem)
+        public bool addItem(string newTreatmentDescription)
         {
-            if (string.IsNullOrEmpty(newItem) || string.Equals(Constants.textBoxPlaceholder, newItem))
+            if (string.IsNullOrEmpty(newTreatmentDescription) || string.Equals(Constants.textBoxPlaceholder, newTreatmentDescription))
             {
                 return false;
             }
             foreach (TextBlock item in items)
             {
-                if (item.Text.Equals(newItem))
+                if (item.Text.Equals(newTreatmentDescription))
                 {
                     return false;
                 }
             }
-            var txtBlock = new TextBlock() { Text = newItem, TextWrapping = TextWrapping.Wrap }; 
+            var txtBlock = new TextBlock() { Text = newTreatmentDescription, TextWrapping = TextWrapping.Wrap }; 
             items.Add(txtBlock);
+            Treatment treatment = new(newTreatmentDescription);
+            sqliteDataStorage.addItemAsync(treatment);
             return true;
         }
 
@@ -49,6 +55,7 @@ namespace Arches.viewModel
                 {
                     TextBlock txtBlock = (TextBlock)item;
                     items.Remove(txtBlock);
+                    sqliteDataStorage.delItemAsync(txtBlock.Text);
                 }
             }
         }

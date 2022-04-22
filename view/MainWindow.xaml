@@ -16,7 +16,7 @@
             <ColumnDefinition Width="309*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Background="WhiteSmoke">
             <MenuItem Header="_File">
                 <MenuItem Header="_New" />
                 <MenuItem Header="_Open" />
