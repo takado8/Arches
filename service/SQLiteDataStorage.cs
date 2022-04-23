@@ -12,14 +12,14 @@ namespace Arches.service
 {
     internal class SQLiteDataStorage
     {
-        const string dataBaseName = "treatments_db";
-        string dataBasePath = Path.Combine(Environment.CurrentDirectory, dataBaseName);
+        const string databaseName = "treatments_db";
+        string databasePath = Path.Combine(Environment.CurrentDirectory, databaseName);
 
         SQLiteAsyncConnection connection;
 
         public SQLiteDataStorage()
         {
-            connection = new SQLiteAsyncConnection(dataBasePath);
+            connection = new SQLiteAsyncConnection(databasePath);
             connection.CreateTableAsync<Treatment>();
         }
 

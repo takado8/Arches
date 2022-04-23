@@ -61,7 +61,6 @@ namespace Arches
         {
             string newItem = textBoxNewListItem.Text;
             var result = treatmentsListViewModel.addItem(newItem);
-
             if (result)
             {
                 textBoxNewListItem.Text = "";
@@ -87,18 +86,23 @@ namespace Arches
             }
         }
 
-        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
-        {
-            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(), imageGrid);
-            MessageBox.Show("Image saved.");
-        }
-
         private void textBoxNewListItem_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
                 addTreatmentToList();
             }
+        }
+
+        private void MenuItemSave_Click(object sender, RoutedEventArgs e)
+        {
+            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(), imageGrid);
+            MessageBox.Show("Zapisano grafikę.", "Gotowe");
+        }
+
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

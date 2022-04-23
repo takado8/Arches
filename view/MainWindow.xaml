@@ -17,12 +17,10 @@
         </Grid.ColumnDefinitions>
 
         <Menu DockPanel.Dock="Top" Background="WhiteSmoke">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" Click="MenuItemSave_Click"/>
+            <MenuItem Header="_Plik">
+                <MenuItem Header="_Zapisz" Click="MenuItemSave_Click"/>
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Zakończ" Click="MenuItemExit_Click" />
             </MenuItem>
         </Menu>
 

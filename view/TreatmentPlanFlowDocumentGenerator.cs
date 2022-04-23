@@ -16,7 +16,6 @@ namespace Arches.view
         public static FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
         {
             List mainList = new List();
-            // Set the space between the markers and list content to 25 DIP.
             mainList.MarkerOffset = 5;
             mainList.MarkerStyle = TextMarkerStyle.Decimal;
             mainList.StartIndex = 1;
@@ -26,7 +25,6 @@ namespace Arches.view
                 subList.MarkerStyle = TextMarkerStyle.Disc;
                 subList.StartIndex = 1;
                 subList.MarkerOffset = 5;
-                //subList.Background = Brushes.Magenta;
                 ListItem mainListItem = new ListItem(new Paragraph(new Run(" ząb nr: " + keyValuePair.Key[1] + "." + keyValuePair.Key[2])));
                 foreach (var value in keyValuePair.Value)
                 {
@@ -39,7 +37,6 @@ namespace Arches.view
                 mainList.ListItems.Add(mainListItem);
             }
             FlowDocument flowDocument = new();
-            //mainList.Background = Brushes.Red;
             mainList.TextAlignment = TextAlignment.Left;
             mainList.Margin = new Thickness(0,0,0,0);
             mainList.Padding = new Thickness(2,0,0,0);
@@ -48,8 +45,6 @@ namespace Arches.view
             flowViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
-            //flowReader.IsFindEnabled = false;
-            //flowReader.IsManipulationEnabled = false;
             return flowViewer;
         }
     }

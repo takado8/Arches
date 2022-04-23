@@ -16,7 +16,7 @@ namespace Arches.viewModel
     internal class TreatmentPlanViewModel
     {
         StackPanel stackPanel;
-        Dictionary<string, List<string>> selectedTeethDescriptions = new();
+        Dictionary<string, List<string>> teethDescriptions = new();
         Dictionary<string, List<TextBlock>> teethTreatmentsList = new();
         List<string> selectedTeeth = new();
         string selectedToothCode = "";
@@ -29,7 +29,7 @@ namespace Arches.viewModel
 
         public void updateTreatmentsForSelectedTooth(IList treatments)
         {
-            if (!String.IsNullOrEmpty(selectedToothCode) && selectedTeethDescriptions.ContainsKey(selectedToothCode))
+            if (!String.IsNullOrEmpty(selectedToothCode) && teethDescriptions.ContainsKey(selectedToothCode))
             {
                 if (teethTreatmentsList.ContainsKey(selectedToothCode))
                 {
@@ -39,7 +39,7 @@ namespace Arches.viewModel
                 {
                     teethTreatmentsList.Add(selectedToothCode, new List<TextBlock>());
                 }
-                selectedTeethDescriptions[selectedToothCode].Clear();
+                teethDescriptions[selectedToothCode].Clear();
                 for (int i = 0; i < treatments.Count; i++)
                 {
                     var treatmentRaw = treatments[i];
@@ -47,7 +47,7 @@ namespace Arches.viewModel
                     {
                         TextBlock treatment = (TextBlock)treatmentRaw;
                         teethTreatmentsList[selectedToothCode].Add(treatment);
-                        selectedTeethDescriptions[selectedToothCode].Add(treatment.Text);
+                        teethDescriptions[selectedToothCode].Add(treatment.Text);
                     }
                 }
                 updateTreatmentPlan();
@@ -68,7 +68,7 @@ namespace Arches.viewModel
             Dictionary<string, List<string>> selectedTeethDescriptionsFiltered = new();
             foreach(var toothCode in selectedTeeth)
             {
-                selectedTeethDescriptionsFiltered.Add(toothCode, selectedTeethDescriptions[toothCode]);
+                selectedTeethDescriptionsFiltered.Add(toothCode, teethDescriptions[toothCode]);
             }
             var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
             stackPanel.Children.Clear();
@@ -105,9 +105,9 @@ namespace Arches.viewModel
                 {
                     selectedTeeth.Add(toothCode);
                 }
-                if (!selectedTeethDescriptions.ContainsKey(toothCode))
+                if (!teethDescriptions.ContainsKey(toothCode))
                 {
-                    selectedTeethDescriptions.Add(toothCode, new List<string>());
+                    teethDescriptions.Add(toothCode, new List<string>());
                 }
             }
             updateTreatmentPlan();
