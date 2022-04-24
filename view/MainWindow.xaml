@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arches"
         mc:Ignorable="d"
-        Title="Arches" Height="564" Width="1085"
+        Title="Arches" Height="660" Width="1085"
         Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         >
     <Grid>
@@ -25,9 +25,10 @@
         </Menu>
 
         <Grid x:Name="imageGrid" Grid.Column="2">
-            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" Margin="-73,56,51,0" />
+            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" Margin="-73,60,51,0" />
             <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="91,78,0,0"/>
             <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="62,86,0,0"/>
+            <Label Content="1.1" HorizontalAlignment="Left" Margin="82,52,0,0" VerticalAlignment="Top" Width="30" Height="25" FontSize="11" FontWeight="Bold"/>
 
         </Grid>
         <ListBox x:Name="listbox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="listbox_Selected" SelectionMode="Multiple" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
