@@ -96,8 +96,8 @@ namespace Arches
 
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
         {
-            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(), imageGrid);
-            MessageBox.Show("Zapisano grafikę.", "Gotowe");
+            TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(),
+                imageGrid, textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)

@@ -25,7 +25,7 @@
         </Menu>
 
         <Grid x:Name="imageGrid" Grid.Column="2">
-            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/dental_arches/main.png" Margin="-73,60,51,0" />
+            <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/resources/main.png" Margin="-73,60,51,0" />
             <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="14" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="88,82,0,0"/>
             <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="54,99,0,0"/>
             <Ellipse x:Name="ellipse13" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="26,119,0,0"/>

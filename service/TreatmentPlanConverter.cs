@@ -50,9 +50,10 @@ namespace Arches.service
 
         internal static BitmapSource mergeUIElementsToImg(params FrameworkElement[] elements)
         {
-            double size_multiplier = 1.5;
-            double totalWidth = size_multiplier * elements.Sum(element => element.ActualWidth);
-            double totalHeight = size_multiplier * elements.MaxBy(element => element.ActualHeight).ActualHeight;
+            double width_multiplier = 1.5;
+            double height_multiplier = 1.3;
+            double totalWidth = width_multiplier * elements.Sum(element => element.ActualWidth);
+            double totalHeight = height_multiplier * elements.MaxBy(element => element.ActualHeight).ActualHeight;
             var size = new Size(totalWidth, totalHeight);
             var rectangleFrame = new Rectangle
             {
@@ -71,10 +72,10 @@ namespace Arches.service
                 using (DrawingContext draw = drawingContext.RenderOpen())
                 {
                     var visualBrush = new VisualBrush(element);
-                    var elementSize = new Size(size_multiplier * element.ActualWidth, size_multiplier * element.ActualHeight);
+                    var elementSize = new Size(width_multiplier * element.ActualWidth, height_multiplier * element.ActualHeight);
                     draw.DrawRectangle(visualBrush, null, new Rect(new Point(xPointCordinate, 0), elementSize));
                 }
-                xPointCordinate += size_multiplier * element.ActualWidth;
+                xPointCordinate += width_multiplier * element.ActualWidth;
                 renderBitmap.Render(drawingContext);
             }
             return renderBitmap;

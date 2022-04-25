@@ -8,28 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="dental_arches\11.png" />
-    <None Remove="dental_arches\11a.png" />
-    <None Remove="dental_arches\12a.png" />
-    <None Remove="dental_arches\13a.png" />
-    <None Remove="dental_arches\main.png" />
-    <None Remove="dental_arches\template.png" />
+    <None Remove="resources\11.png" />
+    <None Remove="resources\main.png" />
+    <None Remove="resources\template.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="dental_arches\11a.png">
+    <Content Include="resources\main.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dental_arches\12a.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dental_arches\13a.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dental_arches\main.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dental_arches\template.png">
+    <Content Include="resources\template.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
