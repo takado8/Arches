@@ -101,7 +101,9 @@
         <Button x:Name="buttonAdd" Content="Dodaj do listy" Margin="10,0,136,20" VerticalAlignment="Bottom" IsCancel="True" Height="30"  FontSize="14" Click="buttonAdd_Click"/>
         <Button x:Name="buttonDelete" Content="Usuń" HorizontalAlignment="Left" Margin="178,0,0,20" VerticalAlignment="Bottom" IsCancel="True" Height="30" Width="96" Click="buttonDelete_Click" Grid.ColumnSpan="2" FontSize="14"/>
         <Border BorderThickness="0.5" BorderBrush="#666666" Grid.Column="2" Margin="318,32,34,29" Grid.ColumnSpan="2">
-            <StackPanel x:Name="stackPanel" Background="White"/>
+            <ScrollViewer x:Name="scrollViewerStackPanel" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="stackPanel" Background="White" CanVerticallyScroll="True" PreviewMouseWheel="stackPanel_PreviewMouseWheel"/>
+            </ScrollViewer>
         </Border>
         <TextBox x:Name="textBoxName" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="5,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
         <TextBox x:Name="textBoxSurname" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="61,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>

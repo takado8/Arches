@@ -38,7 +38,7 @@ namespace Arches.view
             }
             FlowDocument flowDocument = new();
             mainList.TextAlignment = TextAlignment.Left;
-            mainList.Margin = new Thickness(0,0,0,0);
+            mainList.Margin = new Thickness(10,0,0,0);
             mainList.Padding = new Thickness(2,0,0,0);
             flowDocument.Blocks.Add(mainList);
             FlowDocumentScrollViewer flowViewer = new();

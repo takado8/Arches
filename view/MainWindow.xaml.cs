@@ -105,5 +105,10 @@ namespace Arches
             Environment.Exit(0);
         }
 
+        private void stackPanel_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            scrollViewerStackPanel.ScrollToVerticalOffset(scrollViewerStackPanel.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
     }
 }
