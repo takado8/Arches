@@ -15,6 +15,7 @@ namespace Arches.viewModel
 {
     internal class TreatmentPlanViewModel
     {
+        MainWindow mainWindow;
         StackPanel stackPanel;
         Dictionary<string, List<string>> teethDescriptions = new();
         Dictionary<string, List<TextBlock>> teethTreatmentsList = new();
@@ -22,9 +23,10 @@ namespace Arches.viewModel
         string selectedToothCode = "";
         Ellipse? selectedToothEllipse;
 
-        public TreatmentPlanViewModel(StackPanel stackPanel)
+        public TreatmentPlanViewModel(MainWindow mainWindow)
         {
-            this.stackPanel = stackPanel;
+            this.mainWindow = mainWindow;
+            this.stackPanel = mainWindow.stackPanel;
         }
 
         public void updateTreatmentsForSelectedTooth(IList treatments)
@@ -91,6 +93,7 @@ namespace Arches.viewModel
                 selectedTeeth.Remove(toothCode);
                 selectedToothCode = "";
                 selectedToothEllipse = null;
+                switchLabelVisibility(toothCode);
             }
             else
             {
@@ -104,6 +107,7 @@ namespace Arches.viewModel
                 if (!selectedTeeth.Contains(toothCode))
                 {
                     selectedTeeth.Add(toothCode);
+                    switchLabelVisibility(toothCode);
                 }
                 if (!teethDescriptions.ContainsKey(toothCode))
                 {
@@ -111,6 +115,35 @@ namespace Arches.viewModel
                 }
             }
             updateTreatmentPlan();
+        }
+
+        private void switchLabelVisibility(string toothCode)
+        {
+            foreach (Label lb in FindVisualChildren<Label>(mainWindow))
+            {
+                if (lb.Name.Contains(toothCode))
+                {
+                    if (lb.Visibility == Visibility.Hidden)
+                    {
+                        lb.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        lb.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+        }
+        private static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj == null) yield return (T)Enumerable.Empty<T>();
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+            {
+                DependencyObject ithChild = VisualTreeHelper.GetChild(depObj, i);
+                if (ithChild == null) continue;
+                if (ithChild is T t) yield return t;
+                foreach (T childOfChild in FindVisualChildren<T>(ithChild)) yield return childOfChild;
+            }
         }
     }
 }

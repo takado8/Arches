@@ -32,7 +32,7 @@ namespace Arches
         {
             InitializeComponent();
             treatmentsListViewModel = new TreatmentsListViewModel();
-            treatmentPlanViewModel = new TreatmentPlanViewModel(stackPanel);
+            treatmentPlanViewModel = new TreatmentPlanViewModel(this);
             listbox.ItemsSource = treatmentsListViewModel.items;
         }
 
@@ -104,5 +104,6 @@ namespace Arches
         {
             Environment.Exit(0);
         }
+
     }
 }
