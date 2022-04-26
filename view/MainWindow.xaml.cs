@@ -35,11 +35,10 @@ namespace Arches
             treatmentPlanViewModel = new TreatmentPlanViewModel(this);
             listbox.ItemsSource = treatmentsListViewModel.items;
         }
-
-        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
         {
-            var ellipse = (Ellipse)sender;
-            treatmentPlanViewModel.selectTooth(ellipse);
+            Ellipse clickedAreaEllipse = (Ellipse)sender;
+            treatmentPlanViewModel.selectTooth(clickedAreaEllipse);
 
             var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
             lockListboxSelectedEvent = true;
@@ -49,6 +48,21 @@ namespace Arches
                 listbox.SelectedItems.Add(treatment);
             }
             lockListboxSelectedEvent = false;
+        }
+
+        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //var ellipse = (Ellipse)sender;
+            //treatmentPlanViewModel.selectTooth(ellipse);
+
+            //var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
+            //lockListboxSelectedEvent = true;
+            //listbox.SelectedItems.Clear();
+            //foreach (var treatment in treatments)
+            //{
+            //    listbox.SelectedItems.Add(treatment);
+            //}
+            //lockListboxSelectedEvent = false;
         }
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
@@ -110,5 +124,6 @@ namespace Arches
             scrollViewerStackPanel.ScrollToVerticalOffset(scrollViewerStackPanel.VerticalOffset - e.Delta);
             e.Handled = true;
         }
+
     }
 }

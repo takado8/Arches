@@ -82,11 +82,13 @@ namespace Arches.viewModel
             return stackPanel.Children.Count > 0 ? (FlowDocumentScrollViewer)stackPanel.Children[0] : new FlowDocumentScrollViewer();
         }
 
-        public void selectTooth(Ellipse ellipse)
+        public void selectTooth(Ellipse clickedAreaEllipse)
         {
-            var name = ellipse.Name.Substring(7);
-            var toothCode = "t" + name;
-            
+            var toothNb = clickedAreaEllipse.Name.Substring(9);
+            var ellipse = getMarkerEllipse(toothNb);
+            if (ellipse == null) return;
+            var toothCode = "t" + toothNb;
+
             if (selectedToothCode.Equals(toothCode))
             { 
                 ellipse.Fill = new SolidColorBrush(Colors.Transparent);
@@ -117,6 +119,19 @@ namespace Arches.viewModel
             updateTreatmentPlan();
         }
 
+        private Ellipse? getMarkerEllipse(string clickedAreaEllipseNumber)
+        {
+            var name = "ellipse" + clickedAreaEllipseNumber;
+            foreach (Ellipse ellipse in FindVisualChildren<Ellipse>(mainWindow))
+            {
+                if (ellipse.Name.Equals(name))
+                {
+                    return ellipse;
+                }
+            }
+            return null;
+        }
+
         private void switchLabelVisibility(string toothCode)
         {
             foreach (Label lb in FindVisualChildren<Label>(mainWindow))
@@ -131,6 +146,7 @@ namespace Arches.viewModel
                     {
                         lb.Visibility = Visibility.Hidden;
                     }
+                    break;
                 }
             }
         }

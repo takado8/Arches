@@ -94,6 +94,281 @@
             <Label x:Name="label_t23" Content="2.3" Visibility="Hidden" HorizontalAlignment="Left" Margin="218,96,0,0" VerticalAlignment="Top" Width="30" Height="26" FontSize="11" FontWeight="Bold"/>
             <Label x:Name="label_t22" Content="2.2" Visibility="Hidden" HorizontalAlignment="Left" Margin="177,69,0,0" VerticalAlignment="Top" Width="30" Height="26" FontSize="11" FontWeight="Bold"/>
             <Label x:Name="label_t21" Content="2.1" Visibility="Hidden" HorizontalAlignment="Left" Margin="128,51,0,0" VerticalAlignment="Top" Width="30" Height="26" FontSize="11" FontWeight="Bold"/>
+            <Ellipse x:Name="ellipse_t11" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="38" Margin="75,72,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="39"/>
+            <Ellipse x:Name="ellipse_t12" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="32" Margin="44,89,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="33"/>
+            <Ellipse x:Name="ellipse_t13" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="40" Margin="15,103,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-21.91"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t14" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="33" Margin="-9,136,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="16.408"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t15" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="33" Margin="-19,171,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="16.408"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t16" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="51" Margin="-33,202,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="48"/>
+            <Ellipse x:Name="ellipse_t17" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="49" Margin="-47,250,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="36.657"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t18" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="49" Margin="-56,296,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="21.707"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t21" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="38" Margin="121,71,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="39"/>
+            <Ellipse x:Name="ellipse_t22" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="35" Margin="160,86,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="33"/>
+            <Ellipse x:Name="ellipse_t23" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="42" Margin="187,103,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="19.242"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t24" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="42" Margin="202,134,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="67.031"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t25" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="42" Margin="217,166,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="73.949"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t26" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="56" Margin="223,199,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="46" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="55.092"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t27" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="56" Margin="231,244,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="46" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="56.62"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t28" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="56" Margin="236,292,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="46" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-1.057"/>
+                        <RotateTransform Angle="72.742"/>
+                        <TranslateTransform X="0.385" Y="0.18"/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t48" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="45" Margin="-49,360,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="34.927"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t47" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="45" Margin="-48,406,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="65.258"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t46" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="50" Margin="-42,458,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="65.258"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t45" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="39" Margin="-12,504,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="65.258"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t44" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="39" Margin="7,535,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="65.258"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t43" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="39" Margin="30,562,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-12.483"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t42" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="30" Margin="62,578,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.776"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t41" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="30" Margin="89,583,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="1.21"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t31" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="30" Margin="119,581,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="1.21"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t32" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="30" Margin="145,575,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="26" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-22.842"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t33" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="36" Margin="172,562,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="28" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-22.842"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t34" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="39" Margin="191,534,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="32" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-37.424"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t35" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="39" Margin="210,505,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="37" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="65.258"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t36" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="53" Margin="216,455,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="114.641"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t37" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="49" Margin="229,404,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="54" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="114.641"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ellipse_t38" Cursor="Hand" MouseLeftButtonDown="ellipseToothAreaClicked" HorizontalAlignment="Left" Fill="Transparent" Height="47" Margin="236,356,0,0" Stroke="Transparent" VerticalAlignment="Top" Width="44" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="114.641"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
 
         </Grid>
         <ListBox x:Name="listbox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="listbox_Selected" SelectionMode="Multiple" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
