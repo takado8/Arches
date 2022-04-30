@@ -67,19 +67,30 @@ namespace Arches.viewModel
 
         private void updateTreatmentPlan()
         {
-            Dictionary<string, List<string>> selectedTeethDescriptionsFiltered = new();
-            foreach(var toothCode in selectedTeeth)
-            {
-                selectedTeethDescriptionsFiltered.Add(toothCode, teethDescriptions[toothCode]);
-            }
+            var selectedTeethDescriptionsFiltered = getSelectedTeethDescriptions();
             var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
             stackPanel.Children.Clear();
             stackPanel.Children.Add(treatmentPlan);
         }
 
+        private Dictionary<string, List<string>> getSelectedTeethDescriptions()
+        {
+            Dictionary<string, List<string>> selectedTeethDescriptionsFiltered = new();
+            foreach (var toothCode in selectedTeeth)
+            {
+                selectedTeethDescriptionsFiltered.Add(toothCode, teethDescriptions[toothCode]);
+            }
+            return selectedTeethDescriptionsFiltered;
+        }
+
         public FlowDocumentScrollViewer getTreatmentPlan()
         {
             return stackPanel.Children.Count > 0 ? (FlowDocumentScrollViewer)stackPanel.Children[0] : new FlowDocumentScrollViewer();
+        }
+
+        public List<FlowDocumentScrollViewer> getPrintableTreatmentPlan()
+        {
+            return TreatmentPlanFlowDocumentGenerator.createPrintableTreatmentPlan(getSelectedTeethDescriptions());
         }
 
         public void selectTooth(Ellipse clickedAreaEllipse)

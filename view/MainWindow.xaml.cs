@@ -112,7 +112,7 @@ namespace Arches
         {
             //TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(),
             //    imageGrid, textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
-            TreatmentPlanConverter.UIElementToPdf2(imageGrid, treatmentPlanViewModel.getTreatmentPlan());
+            TreatmentPlanConverter.UIElementToPdf2(imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)

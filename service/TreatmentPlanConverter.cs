@@ -130,10 +130,15 @@ namespace Arches.service
             dialog.FileName, 1);
         }
 
-        public static void UIElementToPdf2(FrameworkElement imageGrid, FrameworkElement treatmentPlan)
+        public static void UIElementToPdf2(FrameworkElement imageGrid, List<FlowDocumentScrollViewer> treatmentPlans)
         {
-            var dialog = new SaveFileDialog();
+            if (treatmentPlans.Count < 1)
+            {
+                return;
+            }
+            var treatmentPlan = treatmentPlans[0];
 
+            var dialog = new SaveFileDialog();
             dialog.AddExtension = true;
             dialog.DefaultExt = "pdf";
             dialog.Filter = "PDF Document (*.pdf)|*.pdf";
@@ -163,25 +168,46 @@ namespace Arches.service
             image.Source = img;
             grid.Children.Add(image);
             image.SetValue(Grid.ColumnProperty, 0);
-            RemoveFromParent(treatmentPlan);
-
-            MessageBox.Show("height: " + treatmentPlan.ActualHeight.ToString());
-
             grid.Children.Add(treatmentPlan);
             treatmentPlan.SetValue(Grid.ColumnProperty, 1);
-
 
             fixedPage.Children.Add(grid);
             ((System.Windows.Markup.IAddChild)pageContent).AddChild(fixedPage);
 
             fixedDoc.Pages.Add(pageContent);
-           
+
+            if (treatmentPlans.Count > 1)
+            {
+                for (int i = 1; i < treatmentPlans.Count; i+=2)
+                {
+                    PageContent pageContent2 = new PageContent();
+                    FixedPage fixedPage2 = new FixedPage();
+                    fixedPage2.Width = 11.69 * 96;
+                    fixedPage2.Height = 8.27 * 96;
+
+                    Grid grid2 = new Grid();
+
+                    grid2.ColumnDefinitions.Add(new ColumnDefinition());
+                    grid2.ColumnDefinitions.Add(new ColumnDefinition());
+
+                    grid2.Children.Add(treatmentPlans[i]);
+                    treatmentPlans[i].SetValue(Grid.ColumnProperty, 0);
+                    if (i + 1 < treatmentPlans.Count)
+                    {
+                        grid2.Children.Add(treatmentPlans[i + 1]);
+                        treatmentPlans[i + 1].SetValue(Grid.ColumnProperty, 1);
+                    }
+                    fixedPage2.Children.Add(grid2);
+                    ((System.Windows.Markup.IAddChild)pageContent2).AddChild(fixedPage2);
+
+                    fixedDoc.Pages.Add(pageContent2);
+                }
+            }
             writer.Write(fixedDoc);
 
             doc.Close();
             package.Close();
 
-            // Convert 
             MemoryStream outStream = new MemoryStream();
             PdfSharp.Xps.XpsConverter.Convert(lMemoryStream, outStream, false);
 
@@ -189,13 +215,11 @@ namespace Arches.service
             FileStream fileStream = new FileStream(dialog.FileName, FileMode.Create);
             outStream.CopyTo(fileStream);
 
-            // Clean up
             outStream.Flush();
             outStream.Close();
             fileStream.Flush();
             fileStream.Close();
         }
-
 
         public static void RemoveFromParent(this FrameworkElement item)
         {
