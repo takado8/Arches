@@ -1,12 +1,7 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -16,7 +11,6 @@ using System.Windows.Shapes;
 using System.Windows.Xps.Packaging;
 using System.IO.Packaging;
 using System.Windows.Xps;
-using PdfSharp;
 
 namespace Arches.service
 {

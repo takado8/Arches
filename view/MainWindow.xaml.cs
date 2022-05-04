@@ -2,22 +2,9 @@
 using Arches.view;
 using Arches.viewModel;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PdfSharp.Pdf.Printing;
 
 namespace Arches
 {
@@ -105,7 +92,10 @@ namespace Arches
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(0);
+            if (unsavedFileSafety())
+            {
+                Environment.Exit(0);
+            }
         }
 
         private void stackPanel_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -134,15 +124,23 @@ namespace Arches
 
         private void MenuItemNewFile_Click(object sender, RoutedEventArgs e)
         {
+            if (unsavedFileSafety())
+            {
+                newFile();
+            }
+        }
+
+        private bool unsavedFileSafety()
+        {
             if (!isFileSaved)
             {
                 var result = MessageBox.Show("Plik nie jest zapisany, zapisać?", "Zapisać plik?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (saveFile() == null) return;
+                    if (saveFile() == null) return false;
                 }
             }
-            newFile();
+            return true;
         }
 
         private void newFile()
