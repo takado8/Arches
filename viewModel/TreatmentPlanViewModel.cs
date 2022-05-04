@@ -135,6 +135,17 @@ namespace Arches.viewModel
             updateTreatmentPlan();
         }
 
+        public void deselectTooth()
+        {
+            var ellipse = getMarkerEllipse(selectedToothCode.Substring(1));
+            if (ellipse != null)
+            {
+                ellipse.Fill = new SolidColorBrush(Colors.Red);
+                selectedToothCode = "";
+                selectedToothEllipse = null;
+            }
+        }
+
         private Ellipse? getMarkerEllipse(string clickedAreaEllipseNumber)
         {
             var name = "ellipse" + clickedAreaEllipseNumber;
@@ -176,6 +187,28 @@ namespace Arches.viewModel
                 if (ithChild is T t) yield return t;
                 foreach (T childOfChild in FindVisualChildren<T>(ithChild)) yield return childOfChild;
             }
+        }
+        internal void clear()
+        {
+            teethDescriptions = new();
+            teethTreatmentsList = new();
+            selectedTeeth = new();
+            selectedToothCode = "";
+            selectedToothEllipse = null;
+
+            foreach(var ellipse in FindVisualChildren<Ellipse>(mainWindow))
+            {
+                ellipse.Fill = new SolidColorBrush(Colors.Transparent);
+            }
+
+            foreach(var label in FindVisualChildren<Label>(mainWindow))
+            {
+                if (label.Name.Contains("label_t"))
+                {
+                    label.Visibility = Visibility.Hidden;
+                }
+            }
+            updateTreatmentPlan();
         }
     }
 }

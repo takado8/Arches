@@ -4,6 +4,7 @@ using Arches.viewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PdfSharp.Pdf.Printing;
 
 namespace Arches
 {
@@ -28,6 +30,7 @@ namespace Arches
         TreatmentPlanViewModel treatmentPlanViewModel;
         TreatmentPlanPdfService pdfService;
         bool lockListboxSelectedEvent = false;
+        bool isFileSaved = false;
 
         public MainWindow()
         {
@@ -111,13 +114,47 @@ namespace Arches
             e.Handled = true;
         }
 
-        private void saveFile()
+        private string? saveFile()
         {
             var path = FilePathBrowser.showSaveFileDialog(textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
             if (path != null)
             {
+                lockListboxSelectedEvent = true;
+                listbox.SelectedItems.Clear();
+                lockListboxSelectedEvent = false;
+                treatmentPlanViewModel.deselectTooth();
+
                 pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
+                MessageBox.Show("Plik został zapisany.", "Zapisano plik");
+                isFileSaved = true;
+                return path;
             }
+            return null;
+        }
+
+        private void MenuItemNewFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isFileSaved)
+            {
+                var result = MessageBox.Show("Plik nie jest zapisany, zapisać?", "Zapisać plik?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (saveFile() == null) return;
+                }
+            }
+            newFile();
+        }
+
+        private void newFile()
+        {
+            lockListboxSelectedEvent = true;
+            listbox.SelectedItems.Clear();
+            lockListboxSelectedEvent = false;
+            treatmentPlanViewModel.clear();
+            textBoxName.Text = "";
+            textBoxSurname.Text = "";
+            datepickerBirthday.Text = "";
+            isFileSaved = false;
         }
     }
 }

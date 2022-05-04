@@ -18,14 +18,17 @@ namespace Arches.service
        
         public static string? showSaveFileDialog(string name, string surname, string birthdate)
         {
-            if (!isValidCredentials(name, surname, birthdate))
+            string filename;
+            if (isValidCredentials(name, surname, birthdate))
             {
-                MessageBox.Show("Wprowadź imię, nazwisko oraz datę urodzenia.", "Niewypełnione pola.");
-                return null;
+                filename = surname + "_" + name + "_" + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy"); ;
+            }
+            else
+            {
+                filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm");
             }
             createDefaultDirectory();
-            string filename = surname + "_" + name + "_" + birthdate;
-
+            
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = filename,

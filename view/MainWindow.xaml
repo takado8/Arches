@@ -18,6 +18,7 @@
 
         <Menu DockPanel.Dock="Top" Background="WhiteSmoke">
             <MenuItem Header="_Plik">
+                <MenuItem Header="_Nowy" Click="MenuItemNewFile_Click"/>
                 <MenuItem Header="_Zapisz" Click="MenuItemSave_Click"/>
                 <Separator />
                 <MenuItem Header="_Zakończ" Click="MenuItemExit_Click" />
@@ -58,10 +59,10 @@
             <Ellipse x:Name="ellipse36" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="234,475,0,0"/>
             <Ellipse x:Name="ellipse37" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="242,422,0,0"/>
             <Ellipse x:Name="ellipse38" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="245,371,0,0"/>
-            <Label Content="Góra" FontSize="16" HorizontalAlignment="Left" Margin="92,169,0,0" VerticalAlignment="Top"/>
-            <Label Content="Dół" FontSize="16" HorizontalAlignment="Left" Margin="97,467,0,0" VerticalAlignment="Top"/>
-            <Label Content="Prawa strona" FontSize="16" HorizontalAlignment="Left" Margin="-79,591,0,0" VerticalAlignment="Top" Width="118"/>
-            <Label Content="Lewa strona" FontSize="16" HorizontalAlignment="Left" Margin="216,591,0,0" VerticalAlignment="Top"/>
+            <Label Content="Góra" FontSize="16" HorizontalAlignment="Left" Margin="92,169,0,0" VerticalAlignment="Top" FontWeight="Light"/>
+            <Label Content="Dół" FontSize="16" HorizontalAlignment="Left" Margin="97,467,0,0" VerticalAlignment="Top" FontWeight="Light"/>
+            <Label Content="Prawa strona" FontWeight="Thin" FontSize="16" HorizontalAlignment="Left" Margin="-79,591,0,0" VerticalAlignment="Top" Width="118"/>
+            <Label Content="Lewa strona" FontWeight="Thin" FontSize="16" HorizontalAlignment="Left" Margin="216,591,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_t11" Content="1.1" Visibility="Hidden" HorizontalAlignment="Left" Margin="81,51,0,0" VerticalAlignment="Top" Width="30" Height="25" FontSize="11" FontWeight="Bold"/>
             <Label x:Name="label_t12" Content="1.2" Visibility="Hidden" HorizontalAlignment="Left" Margin="32,69,0,0" VerticalAlignment="Top" Width="30" Height="25" FontSize="11" FontWeight="Bold"/>
             <Label x:Name="label_t13" Content="1.3" Visibility="Hidden" HorizontalAlignment="Left" Margin="-11,97,0,0" VerticalAlignment="Top" Width="30" Height="25" FontSize="11" FontWeight="Bold"/>
