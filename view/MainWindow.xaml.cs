@@ -26,13 +26,15 @@ namespace Arches
     {
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
+        TreatmentPlanPdfService pdfService;
         bool lockListboxSelectedEvent = false;
 
         public MainWindow()
         {
             InitializeComponent();
             treatmentsListViewModel = new TreatmentsListViewModel();
-            treatmentPlanViewModel = new TreatmentPlanViewModel(this);
+            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
+            pdfService = new TreatmentPlanPdfService();
             listbox.ItemsSource = treatmentsListViewModel.items;
         }
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
@@ -48,21 +50,6 @@ namespace Arches
                 listbox.SelectedItems.Add(treatment);
             }
             lockListboxSelectedEvent = false;
-        }
-
-        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //var ellipse = (Ellipse)sender;
-            //treatmentPlanViewModel.selectTooth(ellipse);
-
-            //var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
-            //lockListboxSelectedEvent = true;
-            //listbox.SelectedItems.Clear();
-            //foreach (var treatment in treatments)
-            //{
-            //    listbox.SelectedItems.Add(treatment);
-            //}
-            //lockListboxSelectedEvent = false;
         }
 
         private void listbox_Selected(object sender, RoutedEventArgs e)
@@ -110,9 +97,7 @@ namespace Arches
 
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
         {
-            //TreatmentPlanFileManager.saveTreatmentPlanAsImage(treatmentPlanViewModel.getTreatmentPlan(),
-            //    imageGrid, textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
-            TreatmentPlanConverter.UIElementToPdf2(imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
+            saveFile();
         }
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
@@ -126,5 +111,13 @@ namespace Arches
             e.Handled = true;
         }
 
+        private void saveFile()
+        {
+            var path = FilePathBrowser.showSaveFileDialog(textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
+            if (path != null)
+            {
+                pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
+            }
+        }
     }
 }

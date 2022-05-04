@@ -12,31 +12,20 @@ using System.Windows.Shapes;
 
 namespace Arches.service
 {
-    internal static class TreatmentPlanFileManager
+    internal static class FilePathBrowser
     {
         private static string initialDirectory = System.IO.Path.Join(Environment.CurrentDirectory, "Zapisane Pliki");
        
         public static string? showSaveFileDialog(string name, string surname, string birthdate)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname)
-              || string.IsNullOrEmpty(birthdate))
+            if (!isValidCredentials(name, surname, birthdate))
             {
                 MessageBox.Show("Wprowadź imię, nazwisko oraz datę urodzenia.", "Niewypełnione pola.");
                 return null;
             }
+            createDefaultDirectory();
             string filename = surname + "_" + name + "_" + birthdate;
-            if (!Directory.Exists(initialDirectory))
-            {
-                try
-                {
-                    Directory.CreateDirectory(initialDirectory);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Błąd podczas tworzenia folderu.");
-                    initialDirectory = Environment.CurrentDirectory;
-                }
-            }
+
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = filename,
@@ -61,6 +50,32 @@ namespace Arches.service
             }
             MessageBox.Show("Błąd, plik nie został zapisany!", "Błąd zapisu!");
             return null;
+        }
+
+        private static bool isValidCredentials(string name, string surname, string birthdate)
+        {
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname)
+              || string.IsNullOrEmpty(birthdate))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private static void createDefaultDirectory()
+        {
+            if (!Directory.Exists(initialDirectory))
+            {
+                try
+                {
+                    Directory.CreateDirectory(initialDirectory);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Błąd podczas tworzenia folderu.");
+                    initialDirectory = Environment.CurrentDirectory;
+                }
+            }
         }
     }
 }

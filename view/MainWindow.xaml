@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Arches"
         mc:Ignorable="d"
         Title="Arches" Height="660" Width="1085"
-        Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,38 +26,38 @@
 
         <Grid x:Name="imageGrid" Grid.Column="2">
             <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/resources/main.png" Margin="-73,60,51,0" />
-            <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="14" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="88,82,0,0"/>
-            <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="54,99,0,0"/>
-            <Ellipse x:Name="ellipse13" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="26,119,0,0"/>
-            <Ellipse x:Name="ellipse14" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="11,148,0,0"/>
-            <Ellipse x:Name="ellipse15" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-5,178,0,0"/>
-            <Ellipse x:Name="ellipse16" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-18,220,0,0"/>
-            <Ellipse x:Name="ellipse17" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-30,268,0,0"/>
-            <Ellipse x:Name="ellipse18" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-36,310,0,0"/>
-            <Ellipse x:Name="ellipse21" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="14" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="133,82,0,0"/>
-            <Ellipse x:Name="ellipse22" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="165,99,0,0"/>
-            <Ellipse x:Name="ellipse23" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="193,117,0,0"/>
-            <Ellipse x:Name="ellipse24" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="207,146,0,0"/>
-            <Ellipse x:Name="ellipse25" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="222,178,0,0"/>
-            <Ellipse x:Name="ellipse26" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="236,220,0,0"/>
-            <Ellipse x:Name="ellipse27" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="246,266,0,0"/>
-            <Ellipse x:Name="ellipse28" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="253,310,0,0"/>
-            <Ellipse x:Name="ellipse48" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-28,371,0,0"/>
-            <Ellipse x:Name="ellipse47" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-26,422,0,0"/>
-            <Ellipse x:Name="ellipse46" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-16,475,0,0"/>
-            <Ellipse x:Name="ellipse45" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="-2,514,0,0"/>
-            <Ellipse x:Name="ellipse44" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="18,545,0,0"/>
-            <Ellipse x:Name="ellipse43" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="41,570,0,0"/>
-            <Ellipse x:Name="ellipse42" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="67,584,0,0"/>
-            <Ellipse x:Name="ellipse41" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="92,589,0,0"/>
-            <Ellipse x:Name="ellipse31" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="124,589,0,0"/>
-            <Ellipse x:Name="ellipse32" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="150,584,0,0"/>
-            <Ellipse x:Name="ellipse33" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="175,570,0,0"/>
-            <Ellipse x:Name="ellipse34" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="199,545,0,0"/>
-            <Ellipse x:Name="ellipse35" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="218,514,0,0"/>
-            <Ellipse x:Name="ellipse36" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="234,475,0,0"/>
-            <Ellipse x:Name="ellipse37" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="242,422,0,0"/>
-            <Ellipse x:Name="ellipse38" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown" Margin="245,371,0,0"/>
+            <Ellipse x:Name="ellipse11" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="14" Stroke="Transparent" Margin="88,82,0,0"/>
+            <Ellipse x:Name="ellipse12" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="54,99,0,0"/>
+            <Ellipse x:Name="ellipse13" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="26,119,0,0"/>
+            <Ellipse x:Name="ellipse14" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="11,148,0,0"/>
+            <Ellipse x:Name="ellipse15" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="-5,178,0,0"/>
+            <Ellipse x:Name="ellipse16" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-18,220,0,0"/>
+            <Ellipse x:Name="ellipse17" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-30,268,0,0"/>
+            <Ellipse x:Name="ellipse18" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-36,310,0,0"/>
+            <Ellipse x:Name="ellipse21" Fill="Transparent" Opacity="0.85" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="14" Stroke="Transparent" Margin="133,82,0,0"/>
+            <Ellipse x:Name="ellipse22" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="165,99,0,0"/>
+            <Ellipse x:Name="ellipse23" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="193,117,0,0"/>
+            <Ellipse x:Name="ellipse24" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="207,146,0,0"/>
+            <Ellipse x:Name="ellipse25" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="15" Stroke="Transparent" Margin="222,178,0,0"/>
+            <Ellipse x:Name="ellipse26" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="236,220,0,0"/>
+            <Ellipse x:Name="ellipse27" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="246,266,0,0"/>
+            <Ellipse x:Name="ellipse28" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="253,310,0,0"/>
+            <Ellipse x:Name="ellipse48" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-28,371,0,0"/>
+            <Ellipse x:Name="ellipse47" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-26,422,0,0"/>
+            <Ellipse x:Name="ellipse46" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-16,475,0,0"/>
+            <Ellipse x:Name="ellipse45" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="-2,514,0,0"/>
+            <Ellipse x:Name="ellipse44" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="18,545,0,0"/>
+            <Ellipse x:Name="ellipse43" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="41,570,0,0"/>
+            <Ellipse x:Name="ellipse42" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" Margin="67,584,0,0"/>
+            <Ellipse x:Name="ellipse41" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" Margin="92,589,0,0"/>
+            <Ellipse x:Name="ellipse31" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" Margin="124,589,0,0"/>
+            <Ellipse x:Name="ellipse32" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="14" Width="16" Stroke="Transparent" Margin="150,584,0,0"/>
+            <Ellipse x:Name="ellipse33" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="175,570,0,0"/>
+            <Ellipse x:Name="ellipse34" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="199,545,0,0"/>
+            <Ellipse x:Name="ellipse35" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="218,514,0,0"/>
+            <Ellipse x:Name="ellipse36" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="234,475,0,0"/>
+            <Ellipse x:Name="ellipse37" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="242,422,0,0"/>
+            <Ellipse x:Name="ellipse38" Fill="Transparent" Cursor="Hand" Opacity="0.85" HorizontalAlignment="Left" VerticalAlignment="Top" Height="15" Width="16" Stroke="Transparent" Margin="245,371,0,0"/>
             <Label Content="Góra" FontSize="16" HorizontalAlignment="Left" Margin="92,169,0,0" VerticalAlignment="Top"/>
             <Label Content="Dół" FontSize="16" HorizontalAlignment="Left" Margin="97,467,0,0" VerticalAlignment="Top"/>
             <Label Content="Prawa strona" FontSize="16" HorizontalAlignment="Left" Margin="-79,591,0,0" VerticalAlignment="Top" Width="118"/>

@@ -1,5 +1,4 @@
 ﻿using System;
-//using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Linq;
 using System.Text;
@@ -11,12 +10,11 @@ using System.Windows.Media;
 
 namespace Arches.view
 {
-    internal static class TreatmentPlanFlowDocumentGenerator
+    internal class TreatmentPlanFlowDocumentGenerator
     {
-        public static FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
+        public FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
         {
             List mainList = initMainList(1);
-            
             FlowDocument flowDocument = new();
             flowDocument.Blocks.Add(mainList);
             FlowDocumentScrollViewer flowViewer = new();
@@ -39,7 +37,7 @@ namespace Arches.view
             return flowViewer;
         }
 
-        public static List<FlowDocumentScrollViewer> createPrintableTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
+        public List<FlowDocumentScrollViewer> createPrintableTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
         {
             List<FlowDocumentScrollViewer> listParts = new();
            
@@ -72,14 +70,14 @@ namespace Arches.view
             return listParts;
         }
 
-        private static bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
+        private bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
         {
             flowViewer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
             flowViewer.Arrange(new Rect(flowViewer.DesiredSize));
             flowViewer.UpdateLayout();
             return flowViewer.DesiredSize.Height > 800;
         }
-        private static FlowDocumentScrollViewer initFlowViewer(List mainList)
+        private FlowDocumentScrollViewer initFlowViewer(List mainList)
         {
             FlowDocument flowDocument = new();
             flowDocument.Blocks.Add(mainList);
@@ -94,7 +92,7 @@ namespace Arches.view
             return flowViewer;
         }
 
-        private static List initMainList(int startIndex)
+        private List initMainList(int startIndex)
         {
             return new List() 
             {
@@ -106,7 +104,7 @@ namespace Arches.view
                 Padding = new Thickness(2, 0, 0, 0)
             };
         }
-        private static List initSubList()
+        private List initSubList()
         {
             return new List()
             {

@@ -15,6 +15,7 @@ namespace Arches.viewModel
 {
     internal class TreatmentPlanViewModel
     {
+        TreatmentPlanFlowDocumentGenerator treatmentPlanGenerator;
         MainWindow mainWindow;
         StackPanel stackPanel;
         Dictionary<string, List<string>> teethDescriptions = new();
@@ -23,10 +24,11 @@ namespace Arches.viewModel
         string selectedToothCode = "";
         Ellipse? selectedToothEllipse;
 
-        public TreatmentPlanViewModel(MainWindow mainWindow)
+        public TreatmentPlanViewModel(MainWindow mainWindow, TreatmentPlanFlowDocumentGenerator treatmentPlanGenerator)
         {
             this.mainWindow = mainWindow;
             this.stackPanel = mainWindow.stackPanel;
+            this.treatmentPlanGenerator = treatmentPlanGenerator;
         }
 
         public void updateTreatmentsForSelectedTooth(IList treatments)
@@ -68,7 +70,7 @@ namespace Arches.viewModel
         private void updateTreatmentPlan()
         {
             var selectedTeethDescriptionsFiltered = getSelectedTeethDescriptions();
-            var treatmentPlan = TreatmentPlanFlowDocumentGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
+            var treatmentPlan = treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
             stackPanel.Children.Clear();
             stackPanel.Children.Add(treatmentPlan);
         }
@@ -93,7 +95,7 @@ namespace Arches.viewModel
 
         public List<FlowDocumentScrollViewer> getPrintableTreatmentPlan()
         {
-            return TreatmentPlanFlowDocumentGenerator.createPrintableTreatmentPlan(getSelectedTeethDescriptions());
+            return treatmentPlanGenerator.createPrintableTreatmentPlan(getSelectedTeethDescriptions());
         }
 
         public void selectTooth(Ellipse clickedAreaEllipse)
