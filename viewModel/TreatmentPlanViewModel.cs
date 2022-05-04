@@ -80,7 +80,10 @@ namespace Arches.viewModel
             {
                 selectedTeethDescriptionsFiltered.Add(toothCode, teethDescriptions[toothCode]);
             }
-            return selectedTeethDescriptionsFiltered;
+            var ordered = selectedTeethDescriptionsFiltered
+                       .OrderBy(r => r.Key)
+                       .ToDictionary(c => c.Key, d => d.Value);
+            return ordered;
         }
 
         public FlowDocumentScrollViewer getTreatmentPlan()

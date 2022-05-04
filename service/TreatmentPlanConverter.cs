@@ -23,6 +23,8 @@ namespace Arches.service
     internal static class TreatmentPlanConverter
     {
         private static string INITIAL_DIRECTORY = System.IO.Path.Join(Environment.CurrentDirectory, "Zapisane Pliki");
+        private const double PAGE_A4_WIDTH = 11.69 * 96;
+        private const double PAGE_A4_HEIGHT = 8.27 * 96;
 
         internal static BitmapSource FlowDocumentToBitmap(FlowDocument document, Size size)
         {
@@ -87,49 +89,36 @@ namespace Arches.service
             }
             return renderBitmap;
         }
-
-        public static void UIElementToPdf(FrameworkElement element)
+        private static Grid makeGrid()
         {
-            var dialog = new SaveFileDialog();
-
-            dialog.AddExtension = true;
-            dialog.DefaultExt = "pdf";
-            dialog.Filter = "PDF Document (*.pdf)|*.pdf";
-            dialog.InitialDirectory = INITIAL_DIRECTORY;
-            if (dialog.ShowDialog() == false)
-                return;
-
-
-            FixedDocument fixedDoc = new FixedDocument();
-            PageContent pageContent = new PageContent();
-            FixedPage fixedPage = new FixedPage();
-
-            //PrintDialog printDlg = new PrintDialog();
-            //Size pageSize = new Size(printDlg.PrintableAreaWidth, printDlg.PrintableAreaHeight - 100);
-
-            var visual = element as UIElement;
-
-            //((System.Windows.Controls.Panel)this.Content).Children.Remove(visual);
-            RemoveFromParent((FrameworkElement)visual);
-            fixedPage.Children.Add(visual);
-            ((System.Windows.Markup.IAddChild)pageContent).AddChild(fixedPage);
-
-            fixedDoc.Pages.Add(pageContent);
-
-            // write to PDF file
-            string tempFilename = "temp.xps";
-            File.Delete(tempFilename);
-            XpsDocument xpsd = new XpsDocument(tempFilename, FileAccess.ReadWrite);
-            System.Windows.Xps.XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(xpsd);
-            writer.Write(fixedDoc);
-            xpsd.Close();
-
-            PdfSharp.Xps.XpsConverter.
-            Convert(
-            tempFilename,
-            dialog.FileName, 1);
+            Grid grid = new Grid();
+            grid.Width = PAGE_A4_WIDTH;
+            grid.Height = PAGE_A4_HEIGHT;
+            grid.HorizontalAlignment = HorizontalAlignment.Center;
+            grid.VerticalAlignment = VerticalAlignment.Top;
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            return grid;
         }
 
+        private static FixedPage makeFixedPage()
+        {
+            FixedPage fixedPage = new FixedPage();
+            fixedPage.Width = PAGE_A4_WIDTH;
+            fixedPage.Height = PAGE_A4_HEIGHT;
+            return fixedPage;
+        }
+
+        private static Image makeImage(FrameworkElement imageGrid)
+        {
+            var img = mergeUIElementsToImg(imageGrid);
+            Image image = new Image();
+            image.VerticalAlignment = VerticalAlignment.Center;
+            image.HorizontalAlignment = HorizontalAlignment.Center;
+            image.Source = img;
+            image.SetValue(Grid.ColumnProperty, 0);
+            return image;
+        }
         public static void UIElementToPdf2(FrameworkElement imageGrid, List<FlowDocumentScrollViewer> treatmentPlans)
         {
             if (treatmentPlans.Count < 1)
@@ -138,36 +127,19 @@ namespace Arches.service
             }
             var treatmentPlan = treatmentPlans[0];
 
-            var dialog = new SaveFileDialog();
-            dialog.AddExtension = true;
-            dialog.DefaultExt = "pdf";
-            dialog.Filter = "PDF Document (*.pdf)|*.pdf";
-            dialog.InitialDirectory = INITIAL_DIRECTORY;
-            if (dialog.ShowDialog() == false)
-                return;
-
             MemoryStream lMemoryStream = new MemoryStream();
             Package package = Package.Open(lMemoryStream, FileMode.Create);
             XpsDocument doc = new XpsDocument(package);
-            
             XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
 
             FixedDocument fixedDoc = new FixedDocument();
             PageContent pageContent = new PageContent();
-            FixedPage fixedPage = new FixedPage();
-            fixedPage.Width = 11.69 * 96;
-            fixedPage.Height = 8.27 * 96;
+            FixedPage fixedPage = makeFixedPage();
 
-            Grid grid = new Grid();
-           
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
-            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            Grid grid = makeGrid();
+            Image image = makeImage(imageGrid);
 
-            var img = mergeUIElementsToImg(imageGrid);
-            Image image = new Image();
-            image.Source = img;
             grid.Children.Add(image);
-            image.SetValue(Grid.ColumnProperty, 0);
             grid.Children.Add(treatmentPlan);
             treatmentPlan.SetValue(Grid.ColumnProperty, 1);
 
@@ -181,17 +153,12 @@ namespace Arches.service
                 for (int i = 1; i < treatmentPlans.Count; i+=2)
                 {
                     PageContent pageContent2 = new PageContent();
-                    FixedPage fixedPage2 = new FixedPage();
-                    fixedPage2.Width = 11.69 * 96;
-                    fixedPage2.Height = 8.27 * 96;
-
-                    Grid grid2 = new Grid();
-
-                    grid2.ColumnDefinitions.Add(new ColumnDefinition());
-                    grid2.ColumnDefinitions.Add(new ColumnDefinition());
+                    FixedPage fixedPage2 = makeFixedPage();
+                    Grid grid2 = makeGrid();
 
                     grid2.Children.Add(treatmentPlans[i]);
                     treatmentPlans[i].SetValue(Grid.ColumnProperty, 0);
+                   
                     if (i + 1 < treatmentPlans.Count)
                     {
                         grid2.Children.Add(treatmentPlans[i + 1]);
@@ -199,7 +166,6 @@ namespace Arches.service
                     }
                     fixedPage2.Children.Add(grid2);
                     ((System.Windows.Markup.IAddChild)pageContent2).AddChild(fixedPage2);
-
                     fixedDoc.Pages.Add(pageContent2);
                 }
             }
@@ -212,26 +178,16 @@ namespace Arches.service
             PdfSharp.Xps.XpsConverter.Convert(lMemoryStream, outStream, false);
 
             // Write pdf file
-            FileStream fileStream = new FileStream(dialog.FileName, FileMode.Create);
+            var filePath = TreatmentPlanFileManager.showSaveFileDialog("test1", "test1", "16.02.1986");
+            if (filePath == null) return;
+           
+            FileStream fileStream = new FileStream(filePath, FileMode.Create);
             outStream.CopyTo(fileStream);
 
             outStream.Flush();
             outStream.Close();
             fileStream.Flush();
             fileStream.Close();
-        }
-
-        public static void RemoveFromParent(this FrameworkElement item)
-        {
-            if (item != null)
-            {
-                var parent = (StackPanel) item.Parent;
-                if (parent != null)
-                {
-                    parent.Children.Remove(item as UIElement);
-                    //parentItemsControl.Items.Remove(item as UIElement);
-                }
-            }
         }
     }
 }

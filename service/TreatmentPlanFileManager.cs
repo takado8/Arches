@@ -15,32 +15,8 @@ namespace Arches.service
     internal static class TreatmentPlanFileManager
     {
         private static string initialDirectory = System.IO.Path.Join(Environment.CurrentDirectory, "Zapisane Pliki");
-        internal static void saveTreatmentPlanAsImage(FlowDocumentScrollViewer flowDocumentViewer, Grid archImage,
-            string patientName, string surname, string birthdate)
-        {
-            string? filePath = browseDirectoryForSavingFile(patientName, surname, birthdate);
-            if (filePath == null)
-            {       
-                return;
-            }
-            var bitMap = TreatmentPlanConverter.mergeUIElementsToImg(archImage, flowDocumentViewer);            
-            var encoder = new JpegBitmapEncoder();
-            try
-            {
-                encoder.Frames.Add(BitmapFrame.Create(bitMap));
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    encoder.Save(stream);
-                }
-                MessageBox.Show("Zapisano grafikę. " + filePath, "Gotowe");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Błąd zapisu!");
-            }
-        }
-
-        private static string? browseDirectoryForSavingFile(string name, string surname, string birthdate)
+       
+        public static string? showSaveFileDialog(string name, string surname, string birthdate)
         {
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname)
               || string.IsNullOrEmpty(birthdate))
@@ -64,8 +40,8 @@ namespace Arches.service
             var dialog = new Microsoft.Win32.SaveFileDialog
             {
                 FileName = filename,
-                DefaultExt = ".jpg",
-                Filter = "Obraz (.jpg)|*.jpg",
+                DefaultExt = "pdf",
+                Filter = "PDF Document (*.pdf)|*.pdf",
                 InitialDirectory = initialDirectory
             };
             bool? result = dialog.ShowDialog();

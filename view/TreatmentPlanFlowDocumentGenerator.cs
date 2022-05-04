@@ -77,7 +77,7 @@ namespace Arches.view
             flowViewer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
             flowViewer.Arrange(new Rect(flowViewer.DesiredSize));
             flowViewer.UpdateLayout();
-            return flowViewer.DesiredSize.Height > 775;
+            return flowViewer.DesiredSize.Height > 800;
         }
         private static FlowDocumentScrollViewer initFlowViewer(List mainList)
         {
@@ -87,6 +87,10 @@ namespace Arches.view
             flowViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
+            flowViewer.VerticalAlignment = VerticalAlignment.Top;
+            flowViewer.HorizontalAlignment = HorizontalAlignment.Center;
+            flowViewer.VerticalContentAlignment = VerticalAlignment.Top;
+            flowViewer.HorizontalContentAlignment = HorizontalAlignment.Center;
             return flowViewer;
         }
 
