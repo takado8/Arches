@@ -38,6 +38,8 @@ namespace Arches.service
             PageContent pageContent = new PageContent();
             FixedPage fixedPage = makeFixedPage();
             Grid grid = makeGrid();
+
+            
             Image image = makeImage(imageGrid);
 
             var treatmentPlanFirstPart = treatmentPlans[0];
@@ -103,7 +105,7 @@ namespace Arches.service
             {
                 Width = (int)size.Width,
                 Height = (int)size.Height,
-                Fill = Brushes.White
+                Fill = Brushes.Transparent
             };
             rectangleFrame.Arrange(new Rect(size));
             var renderBitmap = new RenderTargetBitmap((int)size.Width, (int)size.Height, 96, 96, PixelFormats.Pbgra32);
@@ -133,6 +135,18 @@ namespace Arches.service
             grid.VerticalAlignment = VerticalAlignment.Top;
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
+            
+            string strUri = System.IO.Path.Join(Environment.CurrentDirectory, "resources/dentify_logo.png");
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri(strUri));
+            img.Height = PAGE_A4_HEIGHT;
+            img.Width = PAGE_A4_WIDTH;
+
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource = img.Source;
+            myBrush.Stretch = Stretch.Uniform;
+            myBrush.Opacity = 0.1;
+            grid.Background = myBrush;
             return grid;
         }
 
