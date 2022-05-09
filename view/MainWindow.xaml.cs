@@ -2,6 +2,7 @@
 using Arches.view;
 using Arches.viewModel;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Shapes;
@@ -115,8 +116,11 @@ namespace Arches
                 treatmentPlanViewModel.deselectTooth();
 
                 pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
-                MessageBox.Show("Plik został zapisany.", "Zapisano plik");
+                //MessageBox.Show("Plik został zapisany.", "Zapisano plik");
                 isFileSaved = true;
+                
+                string argument = "/select, \"" + path + "\"";
+                Process.Start("explorer.exe", argument);
                 return path;
             }
             return null;

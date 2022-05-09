@@ -134,12 +134,15 @@ namespace Arches.viewModel
 
         public void deselectTooth()
         {
-            var ellipse = getMarkerEllipse(selectedToothCode.Substring(1));
-            if (ellipse != null)
+            if (!string.IsNullOrEmpty(selectedToothCode))
             {
-                ellipse.Fill = new SolidColorBrush(Colors.Red);
-                selectedToothCode = "";
-                selectedToothEllipse = null;
+                var ellipse = getMarkerEllipse(selectedToothCode.Substring(1));
+                if (ellipse != null)
+                {
+                    ellipse.Fill = new SolidColorBrush(Colors.Red);
+                    selectedToothCode = "";
+                    selectedToothEllipse = null;
+                }
             }
         }
 
