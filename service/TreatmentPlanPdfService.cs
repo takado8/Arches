@@ -31,7 +31,7 @@ namespace Arches.service
             FixedDocument fixedDoc = new FixedDocument();
             PageContent pageContent = new PageContent();
             FixedPage fixedPage = makeFixedPage();
-            Grid grid = makeGrid();
+            Grid grid = makeFirstPageGrid();
 
             
             Image image = makeImage(imageGrid);
@@ -42,7 +42,10 @@ namespace Arches.service
             grid.Children.Add(image);
             grid.Children.Add(treatmentPlanFirstPart);
 
-            fixedPage.Children.Add(grid);
+            Grid outerGrid = makeFirstPageOuterGrid();
+            outerGrid.Children.Add(grid);
+
+            fixedPage.Children.Add(outerGrid);
             ((System.Windows.Markup.IAddChild)pageContent).AddChild(fixedPage);
             fixedDoc.Pages.Add(pageContent);
 
@@ -90,8 +93,8 @@ namespace Arches.service
 
         private BitmapSource mergeUIElementsToImg(params FrameworkElement[] elements)
         {
-            double width_multiplier = 1.5;
-            double height_multiplier = 1.2;
+            double width_multiplier = 1.4;
+            double height_multiplier = 1.1;
             double totalWidth = width_multiplier * elements.Sum(element => element.ActualWidth);
             double totalHeight = height_multiplier * elements.MaxBy(element => element.ActualHeight).ActualHeight;
             var size = new Size(totalWidth, totalHeight);
@@ -119,6 +122,26 @@ namespace Arches.service
             }
             return renderBitmap;
         }
+        private Grid makeFirstPageOuterGrid()
+        {
+            Grid grid = new Grid();
+            grid.Width = PAGE_A4_WIDTH;
+            grid.Height = PAGE_A4_HEIGHT;
+            grid.HorizontalAlignment = HorizontalAlignment.Center;
+            grid.VerticalAlignment = VerticalAlignment.Center;
+            return grid;
+        }
+        private Grid makeFirstPageGrid()
+        {
+            Grid grid = new Grid();
+            grid.Width = PAGE_A4_WIDTH - 20;
+            grid.Height = PAGE_A4_HEIGHT - 20;
+            grid.HorizontalAlignment = HorizontalAlignment.Center;
+            grid.VerticalAlignment = VerticalAlignment.Center;
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            grid.ColumnDefinitions.Add(new ColumnDefinition());
+            return grid;
+        }
 
         private Grid makeGrid()
         {
@@ -126,21 +149,21 @@ namespace Arches.service
             grid.Width = PAGE_A4_WIDTH;
             grid.Height = PAGE_A4_HEIGHT;
             grid.HorizontalAlignment = HorizontalAlignment.Center;
-            grid.VerticalAlignment = VerticalAlignment.Top;
+            grid.VerticalAlignment = VerticalAlignment.Center;
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             
-            string strUri = System.IO.Path.Join(Environment.CurrentDirectory, "resources/dentify_logo.png");
-            Image img = new Image();
-            img.Source = new BitmapImage(new Uri(strUri));
-            img.Height = PAGE_A4_HEIGHT;
-            img.Width = PAGE_A4_WIDTH;
+            //string strUri = System.IO.Path.Join(Environment.CurrentDirectory, "resources/dentify_logo.png");
+            //Image img = new Image();
+            //img.Source = new BitmapImage(new Uri(strUri));
+            //img.Height = PAGE_A4_HEIGHT;
+            //img.Width = PAGE_A4_WIDTH;
 
-            ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = img.Source;
-            myBrush.Stretch = Stretch.Uniform;
-            myBrush.Opacity = 0.1;
-            grid.Background = myBrush;
+            //ImageBrush myBrush = new ImageBrush();
+            //myBrush.ImageSource = img.Source;
+            //myBrush.Stretch = Stretch.Uniform;
+            //myBrush.Opacity = 0.1;
+            //grid.Background = myBrush;
             return grid;
         }
 

@@ -96,7 +96,7 @@ namespace Arches.view
                 MarkerStyle = TextMarkerStyle.Decimal,
                 StartIndex = startIndex,
                 TextAlignment = TextAlignment.Left,
-                Margin = new Thickness(10, 0, 0, 0),
+                Margin = new Thickness(18, 0, 0, 0),
                 Padding = new Thickness(2, 0, 0, 0)
             };
         }
@@ -107,7 +107,7 @@ namespace Arches.view
                 MarkerOffset = 5,
                 MarkerStyle = TextMarkerStyle.Disc,
                 StartIndex = 1,
-                Padding = new Thickness(10, 0, 0, 0),
+                Padding = new Thickness(18, 0, 0, 0),
                 Margin = new Thickness(0, 5, 0, 5)
             };
         }
