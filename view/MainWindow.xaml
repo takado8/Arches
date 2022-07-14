@@ -372,7 +372,7 @@
             </Ellipse>
 
         </Grid>
-        <ListBox x:Name="listbox" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="listbox_Selected" SelectionMode="Multiple" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
+        <TreeView x:Name="treeView" Grid.Column="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,32,0,101" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Left" Width="264"/>
         <TextBox x:Name="textBoxNewListItem" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,58" TextWrapping="Wrap" Text="Nowy zabieg..." VerticalAlignment="Bottom" Width="264" Height="30" FontSize="16" Grid.ColumnSpan="2" GotFocus="textBoxNewListItem_GotFocus" KeyDown="textBoxNewListItem_KeyDown"/>
         <Button x:Name="buttonAdd" Content="Dodaj do listy" Margin="10,0,136,20" VerticalAlignment="Bottom" IsCancel="True" Height="30"  FontSize="14" Click="buttonAdd_Click"/>
         <Button x:Name="buttonDelete" Content="Usuń" HorizontalAlignment="Left" Margin="178,0,0,20" VerticalAlignment="Bottom" IsCancel="True" Height="30" Width="96" Click="buttonDelete_Click" Grid.ColumnSpan="2" FontSize="14"/>
