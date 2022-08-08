@@ -3,21 +3,36 @@ using System.Windows.Controls;
 using System.Windows;
 using Arches.model;
 using Arches.service;
+using System.Collections.Generic;
 
 namespace Arches.viewModel
 {
     internal class TreatmentsListViewModel
     {
-        public ObservableCollection<TextBlock> items { get; } = new();
+        public ObservableCollection<TreeViewItem> items { get; } = new();
         private SQLiteDataStorage sqliteDataStorage = new();
+        private double treeViewWidth;
 
-        public TreatmentsListViewModel()
+        public TreatmentsListViewModel(double treeViewWidth)
         {
+            this.treeViewWidth = treeViewWidth;
             var itemsFromDb = sqliteDataStorage.getItems();
-            foreach (var item in itemsFromDb)
+            if (itemsFromDb != null)
             {
-                var txtBlock = new TextBlock() { Text = item.description, TextWrapping = TextWrapping.Wrap };
-                items.Add(txtBlock);
+                foreach (var item in itemsFromDb)
+                {
+                    //MessageBox.Show(item.treatments.Count.ToString());
+                    var txtBlock = new TextBlock() { Text = item.header, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 15 };
+                    TreeViewItem parentItem = new() { Header = txtBlock };
+                    if (item.treatments != null)
+                    {
+                        foreach (var treatment in item.treatments)
+                        {
+                            parentItem.Items.Add(new TreeViewItem() { Header = treatment });
+                        }
+                    }
+                    items.Add(parentItem);
+                }
             }
         }
 
@@ -27,32 +42,62 @@ namespace Arches.viewModel
             {
                 return false;
             }
-            foreach (TextBlock item in items)
+            foreach (TreeViewItem item in items)
             {
-                if (item.Text.Equals(newTreatmentDescription))
+                if (item.Header.Equals(newTreatmentDescription))
                 {
                     return false;
                 }
             }
-            var txtBlock = new TextBlock() { Text = newTreatmentDescription, TextWrapping = TextWrapping.Wrap }; 
-            items.Add(txtBlock);
-            Treatment treatment = new(newTreatmentDescription);
+            var txtBlock = new TextBlock() { Text = newTreatmentDescription, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 15 };
+            TreeViewItem parentItem = new() { Header = txtBlock };
+            items.Add(parentItem);
+            TreatmentCategory treatment = new(newTreatmentDescription);
             sqliteDataStorage.addItemAsync(treatment);
             return true;
         }
-
-        public void deleteItems(System.Collections.IList itemsToDelete)
+        
+        public async void updateItem(TreeViewItem parentItem, string newChildItemDescription)
         {
-            while(itemsToDelete.Count > 0)
+            if (parentItem != null && !string.IsNullOrWhiteSpace(newChildItemDescription))
             {
-                var item = itemsToDelete[0];
-                if (item != null)
+                TreeViewItem childItem = new() { Header = makeTextBlock(newChildItemDescription) };
+                parentItem.Items.Add(childItem);
+                var parentDescription = ((TextBlock)parentItem.Header).Text;
+                TreatmentCategory fromDb = sqliteDataStorage.getItem(parentDescription);
+                if (fromDb.treatments == null)
                 {
-                    TextBlock txtBlock = (TextBlock)item;
-                    items.Remove(txtBlock);
-                    sqliteDataStorage.delItemAsync(txtBlock.Text);
+                    //fromDb.treatments = new List<string>();
                 }
+                //fromDb.treatments.Add(newChildItemDescription);
+                await sqliteDataStorage.delItemAsync(parentDescription);
+                //MessageBox.Show(task.Status.ToString());
+                //task.Start();
+                //task.Wait();
+
+                await sqliteDataStorage.addItemAsync(fromDb);
+                
             }
+
+           
+        }
+
+
+
+        public void deleteItem(TreeViewItem itemToDelete)
+        {
+            if (itemToDelete != null)
+            {
+                var description = ((TextBlock)itemToDelete.Header).Text;
+                items.Remove(itemToDelete);
+                sqliteDataStorage.delItemAsync(description);
+            }
+            
+        }
+
+        private TextBlock makeTextBlock(string descritpion)
+        {
+            return new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 15 };
         }
     }
 }

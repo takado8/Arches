@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows;
 using Arches.model;
+using SQLiteNetExtensions;
 using SQLite;
 
 
@@ -9,32 +11,60 @@ namespace Arches.service
 {
     internal class SQLiteDataStorage
     {
-        const string databaseName = "treatments_db";
+        const string databaseName = "treatments_db2";
         string databasePath = Path.Combine(Environment.CurrentDirectory, databaseName);
 
         SQLiteAsyncConnection connection;
+        //SQLiteConnection conn;
 
         public SQLiteDataStorage()
         {
             connection = new SQLiteAsyncConnection(databasePath);
+            connection.CreateTableAsync<TreatmentCategory>();
             connection.CreateTableAsync<Treatment>();
         }
 
-        public Treatment[] getItems()
+        public TreatmentCategory[]? getItems()
         {
-            var list = connection.QueryAsync<Treatment>("select * from Treatment;");
-            list.Wait();
-            return list.Result.ToArray();
+            try
+            {
+                var list = connection.QueryAsync<TreatmentCategory>("select * from treatmentsCategories;");
+                list.Wait();
+                return list.Result.ToArray();
+            }
+            catch { return null; }
         }
 
-        public async Task addItemAsync(Treatment treatment)
+        public TreatmentCategory getItem(string itemHeader)
         {
-            await connection.InsertAsync(treatment);
+            var result = connection.QueryAsync<TreatmentCategory>("SELECT * FROM treatmentsCategories WHERE header='" + itemHeader + "';");
+            result.Wait();
+            TreatmentCategory treatmentCategory = result.Result[0];
+
+            var treatmentsResult = connection.QueryAsync<Treatment>("SELECT * FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
+            treatmentsResult.Wait();
+            var treatments = treatmentsResult.Result;
+            treatmentCategory.treatments = treatments;
+            return treatmentCategory;
+        }
+      
+        public async Task addItemAsync(TreatmentCategory treatmentCategory)
+        {
+            await connection.InsertAsync(treatmentCategory);
+            if (treatmentCategory.treatments != null)
+            {
+                foreach (var treatment in treatmentCategory.treatments)
+                {
+                    treatment.treatmentCategoryId = treatmentCategory.Id;
+                }
+                await connection.InsertAllAsync(treatmentCategory.treatments);
+            }
+            
         }
 
-        public async Task delItemAsync(string treatmentDescription)
+        public async Task delItemAsync(string itemHeader)
         {
-            await connection.QueryAsync<Treatment>("DELETE FROM Treatment WHERE description='" + treatmentDescription + "';");
+            await connection.QueryAsync<TreatmentCategory>("DELETE FROM treatmentsCategories WHERE header='" + itemHeader + "';");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Arches.service;
+using Arches.tests;
 using Arches.view;
 using Arches.viewModel;
 using System;
@@ -25,26 +26,28 @@ namespace Arches
         public MainWindow()
         {
             InitializeComponent();
-            treatmentsListViewModel = new TreatmentsListViewModel();
+            treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width);
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
             pdfService = new TreatmentPlanPdfService();
             //listbox.ItemsSource = treatmentsListViewModel.items;
-            TreeViewItem ParentItem = new TreeViewItem();
-            ParentItem.Header = "Parent1";
-            ParentItem.Selected += TreeViewItem_Selected;
-            treeView.Items.Add(ParentItem);
-            TreeViewItem Child1Item = new TreeViewItem();
-            Child1Item.Header = "Child One";
-            ParentItem.Items.Add(Child1Item);
-            //  
-            for (int i = 0; i < 40; i++)
-            {
-                TreeViewItem Child2Item = new TreeViewItem();
-                Child2Item.Header = "Child " + i;
-                Child2Item.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
-                ParentItem.Items.Add(Child2Item);
-            }
+            //TreeViewItem ParentItem = new TreeViewItem();
+            //ParentItem.Header = "Parent1";
+            //ParentItem.Selected += TreeViewItem_Selected;
+            ////treeView.Items.Add(ParentItem);
+            treeView.ItemsSource = treatmentsListViewModel.items;
+            //TreeViewItem Child1Item = new TreeViewItem();
+            //Child1Item.Header = "Child One";
+            //ParentItem.Items.Add(Child1Item);
+            ////  
+            //for (int i = 0; i < 2; i++)
+            //{
+            //    TreeViewItem Child2Item = new TreeViewItem();
+            //    Child2Item.Header = "Child " + i;
+            //    Child2Item.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
+            //    ParentItem.Items.Add(Child2Item);
+            //}
 
+            TestDb.testDb();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
@@ -85,8 +88,19 @@ namespace Arches
        
         private void addTreatmentToList()
         {
-            string newItem = textBoxNewListItem.Text;
-            var result = treatmentsListViewModel.addItem(newItem);
+            bool result;
+            var selected = treeView.SelectedItem;
+            string newItemDescription = textBoxNewListItem.Text;
+            if (selected == null)
+            {
+                result = treatmentsListViewModel.addItem(newItemDescription);
+            }
+            else
+            {
+                treatmentsListViewModel.updateItem((TreeViewItem)selected, newItemDescription);
+                result = true;
+            }
+
             if (result)
             {
                 textBoxNewListItem.Text = "";
@@ -100,8 +114,8 @@ namespace Arches
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            //var selectedItems = listbox.SelectedItems;
-            //treatmentsListViewModel.deleteItems(selectedItems);
+            var selected = (TreeViewItem) treeView.SelectedItem;
+            treatmentsListViewModel.deleteItem(selected);
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
