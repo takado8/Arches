@@ -29,41 +29,18 @@ namespace Arches
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width);
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
             pdfService = new TreatmentPlanPdfService();
-            //listbox.ItemsSource = treatmentsListViewModel.items;
-            //TreeViewItem ParentItem = new TreeViewItem();
-            //ParentItem.Header = "Parent1";
+
             //ParentItem.Selected += TreeViewItem_Selected;
-            ////treeView.Items.Add(ParentItem);
+
             treeView.ItemsSource = treatmentsListViewModel.items;
-            //TreeViewItem Child1Item = new TreeViewItem();
-            //Child1Item.Header = "Child One";
-            //ParentItem.Items.Add(Child1Item);
-            ////  
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    TreeViewItem Child2Item = new TreeViewItem();
-            //    Child2Item.Header = "Child " + i;
+            
             //    Child2Item.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
             //    ParentItem.Items.Add(Child2Item);
             //}
 
             //TestDb.testDb();
         }
-        private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
-        {
-            TreeViewItem tvi = e.OriginalSource as TreeViewItem;
-            if (tvi == null || e.Handled) return;
-            tvi.IsExpanded = !tvi.IsExpanded;
-            e.Handled = true;
-            tvi.IsSelected = false;
-        }
-
-        private void ChildItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var item = (TreeViewItem)sender;
-            item.IsSelected = true;
-            item.Background = Brushes.LightBlue;
-        }
+        
 
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
         {

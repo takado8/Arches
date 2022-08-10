@@ -44,16 +44,19 @@ namespace Arches.service
             catch { return null; }
         }
 
-        public TreatmentCategory getItem(string itemHeader)
+        public TreatmentCategory? getItem(string itemHeader)
         {
             var result = connection.QueryAsync<TreatmentCategory>("SELECT * FROM treatmentsCategories WHERE header='" + itemHeader + "';");
             result.Wait();
-            TreatmentCategory treatmentCategory = result.Result[0];
-
-            var treatmentsResult = connection.QueryAsync<Treatment>("SELECT * FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
-            treatmentsResult.Wait();
-            var treatments = treatmentsResult.Result;
-            treatmentCategory.treatments = treatments;
+            TreatmentCategory? treatmentCategory = null;
+            if (result.Result != null && result.Result.Count > 0)
+            {
+                treatmentCategory = result.Result[0];
+                var treatmentsResult = connection.QueryAsync<Treatment>("SELECT * FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
+                treatmentsResult.Wait();
+                var treatments = treatmentsResult.Result;
+                treatmentCategory.treatments = treatments;
+            }
             return treatmentCategory;
         }
       
