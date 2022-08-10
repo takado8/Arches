@@ -47,7 +47,7 @@ namespace Arches
             //    ParentItem.Items.Add(Child2Item);
             //}
 
-            TestDb.testDb();
+            //TestDb.testDb();
         }
         private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {

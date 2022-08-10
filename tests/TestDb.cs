@@ -30,7 +30,7 @@ namespace Arches.tests
             treatmentCategory.treatments.Add(treatment2);
 
             //when 
-            await sqlite.addItemAsync(treatmentCategory);
+            await sqlite.addTreatmentCategoryAsync(treatmentCategory);
             TreatmentCategory resultFromDb = sqlite.getItem(categoryHeader);
 
             //then
@@ -39,6 +39,11 @@ namespace Arches.tests
                 throw new ArgumentException("Descritpion1: " + treatmentCategory.header +
                     "\nDescritpion2: " + resultFromDb.header);
             }
+            if (!resultFromDb.header.Equals(categoryHeader))
+            {
+                throw new ArgumentException("Descritpion doesn't match. Expected: " + categoryHeader +
+                    "\nActual: " + resultFromDb.header);
+            }
             if (resultFromDb.treatments == null)
             {
                 throw new Exception("treatments list is null.");
@@ -46,11 +51,7 @@ namespace Arches.tests
             if (resultFromDb.treatments.Count < 1)
             {
                 throw new Exception("treatments count < 1");
-            }
-            if (treatmentCategory.treatments.Count < 1)
-            {
-                throw new Exception("treatments count < 1");
-            }
+            }  
             if (treatmentCategory.treatments.Count != resultFromDb.treatments.Count)
             {
                 throw new ArgumentException("Count1: " + treatmentCategory.treatments.Count +
@@ -60,6 +61,16 @@ namespace Arches.tests
             {
                 throw new Exception("treatments descriptions doesn't match. Descritpion1: " + treatmentCategory.treatments[0].description +
                     "\nDescritpion2: " + resultFromDb.treatments[0].description);
+            }
+            if (!resultFromDb.treatments[0].description.Equals(treatmentDescritpion1))
+            {
+                throw new Exception("treatment description doesn't match. Expected: " + treatmentDescritpion1 +
+                    "\nActual: " + resultFromDb.treatments[0].description);
+            }
+            if (!resultFromDb.treatments[1].description.Equals(treatmentDescritpion2))
+            {
+                throw new Exception("treatment description doesn't match. Expected: " + treatmentDescritpion2 +
+                    "\nActual: " + resultFromDb.treatments[1].description);
             }
             MessageBox.Show("Test OK.");
         }

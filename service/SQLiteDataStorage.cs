@@ -5,7 +5,7 @@ using System.Windows;
 using Arches.model;
 using SQLiteNetExtensions;
 using SQLite;
-
+using System.Collections.Generic;
 
 namespace Arches.service
 {
@@ -24,13 +24,22 @@ namespace Arches.service
             connection.CreateTableAsync<Treatment>();
         }
 
-        public TreatmentCategory[]? getItems()
+        public List<TreatmentCategory>? getItems()
         {
             try
             {
-                var list = connection.QueryAsync<TreatmentCategory>("select * from treatmentsCategories;");
-                list.Wait();
-                return list.Result.ToArray();
+                var categoriesTask = connection.QueryAsync<TreatmentCategory>("SELECT * FROM treatmentsCategories;");
+                categoriesTask.Wait();
+                var categories = categoriesTask.Result;
+              
+                foreach (var treatmentCategory in categories)
+                {
+                    var treatmentsResult = connection.QueryAsync<Treatment>("SELECT * FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
+                    treatmentsResult.Wait();
+                    var treatments = treatmentsResult.Result;
+                    treatmentCategory.treatments = treatments;
+                }
+                return categories;
             }
             catch { return null; }
         }
@@ -48,7 +57,7 @@ namespace Arches.service
             return treatmentCategory;
         }
       
-        public async Task addItemAsync(TreatmentCategory treatmentCategory)
+        public async Task addTreatmentCategoryAsync(TreatmentCategory treatmentCategory)
         {
             await connection.InsertAsync(treatmentCategory);
             if (treatmentCategory.treatments != null)
@@ -59,12 +68,21 @@ namespace Arches.service
                 }
                 await connection.InsertAllAsync(treatmentCategory.treatments);
             }
-            
+        }
+
+        public async Task addTreatmentAsync(Treatment treatment)
+        {
+            await connection.InsertAsync(treatment);
         }
 
         public async Task delItemAsync(string itemHeader)
         {
+            var result = connection.QueryAsync<TreatmentCategory>("SELECT * FROM treatmentsCategories WHERE header='" + itemHeader + "';");
+            result.Wait();
+            TreatmentCategory treatmentCategory = result.Result[0];
+
             await connection.QueryAsync<TreatmentCategory>("DELETE FROM treatmentsCategories WHERE header='" + itemHeader + "';");
+            await connection.QueryAsync<Treatment>("DELETE FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
         }
     }
 }

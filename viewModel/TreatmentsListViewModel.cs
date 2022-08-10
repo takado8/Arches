@@ -28,7 +28,7 @@ namespace Arches.viewModel
                     {
                         foreach (var treatment in item.treatments)
                         {
-                            parentItem.Items.Add(new TreeViewItem() { Header = treatment });
+                            parentItem.Items.Add(new TreeViewItem() { Header = treatment.description });
                         }
                     }
                     items.Add(parentItem);
@@ -49,11 +49,11 @@ namespace Arches.viewModel
                     return false;
                 }
             }
-            var txtBlock = new TextBlock() { Text = newTreatmentDescription, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 15 };
+            var txtBlock = makeTextBlock(newTreatmentDescription);
             TreeViewItem parentItem = new() { Header = txtBlock };
             items.Add(parentItem);
             TreatmentCategory treatment = new(newTreatmentDescription);
-            sqliteDataStorage.addItemAsync(treatment);
+            sqliteDataStorage.addTreatmentCategoryAsync(treatment);
             return true;
         }
         
@@ -67,22 +67,12 @@ namespace Arches.viewModel
                 TreatmentCategory fromDb = sqliteDataStorage.getItem(parentDescription);
                 if (fromDb.treatments == null)
                 {
-                    //fromDb.treatments = new List<string>();
+                    fromDb.treatments = new List<Treatment>();
                 }
-                //fromDb.treatments.Add(newChildItemDescription);
-                await sqliteDataStorage.delItemAsync(parentDescription);
-                //MessageBox.Show(task.Status.ToString());
-                //task.Start();
-                //task.Wait();
-
-                await sqliteDataStorage.addItemAsync(fromDb);
-                
+                Treatment newTreatment = new Treatment(newChildItemDescription) { treatmentCategoryId = fromDb.Id };
+                await sqliteDataStorage.addTreatmentAsync(newTreatment);
             }
-
-           
         }
-
-
 
         public void deleteItem(TreeViewItem itemToDelete)
         {
@@ -91,8 +81,7 @@ namespace Arches.viewModel
                 var description = ((TextBlock)itemToDelete.Header).Text;
                 items.Remove(itemToDelete);
                 sqliteDataStorage.delItemAsync(description);
-            }
-            
+            }      
         }
 
         private TextBlock makeTextBlock(string descritpion)
