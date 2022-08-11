@@ -30,21 +30,10 @@ namespace Arches
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
             pdfService = new TreatmentPlanPdfService();
 
-            //ParentItem.Selected += TreeViewItem_Selected;
-
             treeView.ItemsSource = treatmentsListViewModel.items;
-            //treeView.PreviewMouseLeftButtonDown += treatmentsListViewModel.MyTreeView_PreviewMouseDown;
-            treeView.MouseLeftButtonUp += treatmentsListViewModel.TreeView_MouseLeftButtonUp;
-            
-            //    Child2Item.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
-            //    ParentItem.Items.Add(Child2Item);
-            //}
-
-            //TestDb.testDb();
+            treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
         }
-
-        
-
+      
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
         {
             Ellipse clickedAreaEllipse = (Ellipse)sender;
@@ -69,7 +58,7 @@ namespace Arches
         private void addTreatmentToList()
         {
             bool result;
-            var selected = treeView.SelectedItem;
+            var selected = treatmentsListViewModel.selectedParentItem;
             string newItemDescription = textBoxNewListItem.Text;
             if (selected == null)
             {
@@ -77,7 +66,7 @@ namespace Arches
             }
             else
             {
-                treatmentsListViewModel.updateItem((TreeViewItem)selected, newItemDescription);
+                treatmentsListViewModel.updateItem(selected, newItemDescription);
                 result = true;
             }
 

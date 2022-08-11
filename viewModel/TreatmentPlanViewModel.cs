@@ -30,7 +30,7 @@ namespace Arches.viewModel
 
         public void updateTreatmentsForSelectedTooth(IList treatments)
         {
-            if (!String.IsNullOrEmpty(selectedToothCode) && teethDescriptions.ContainsKey(selectedToothCode))
+            if (!string.IsNullOrEmpty(selectedToothCode) && teethDescriptions.ContainsKey(selectedToothCode))
             {
                 if (teethTreatmentsList.ContainsKey(selectedToothCode))
                 {
