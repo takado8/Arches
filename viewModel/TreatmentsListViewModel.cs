@@ -13,6 +13,7 @@ namespace Arches.viewModel
     {
         public ObservableCollection<TreeViewItem> items { get; } = new();
         private SQLiteDataStorage sqliteDataStorage = new();
+        private TreeViewItem? selectedParentItem = null;
         private double treeViewWidth;
 
         public TreatmentsListViewModel(double treeViewWidth)
@@ -25,13 +26,15 @@ namespace Arches.viewModel
                 {
                     var txtBlock = makeTextBlock(item.header);
                     TreeViewItem parentItem = new() { Header = txtBlock };
-                    parentItem.Selected += TreeViewItem_Selected;
+                    parentItem.Selected += ParentItemSelected;
                     if (item.treatments != null)
                     {
                         foreach (var treatment in item.treatments)
                         {
                             var childItem = new TreeViewItem() { Header = makeTextBlock(treatment.description) };
+                            
                             childItem.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
+                            childItem.Selected += ChildItem_Selected;
                             parentItem.Items.Add(childItem);
                         }
                     }
@@ -55,7 +58,7 @@ namespace Arches.viewModel
             }
             var txtBlock = makeTextBlock(newTreatmentDescription);
             TreeViewItem parentItem = new() { Header = txtBlock };
-            parentItem.Selected += TreeViewItem_Selected;
+            parentItem.Selected += ParentItemSelected;
             items.Add(parentItem);
             TreatmentCategory treatment = new(newTreatmentDescription);
             sqliteDataStorage.addTreatmentCategoryAsync(treatment);
@@ -94,25 +97,53 @@ namespace Arches.viewModel
             }      
         }
 
-        private TextBlock makeTextBlock(string descritpion)
+        private Border makeTextBlock(string descritpion)
         {
-            return new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 15 };
+            //< Border Margin = "5" Padding = "5" BorderThickness = "1" BorderBrush = "Red" Background = "AntiqueWhite" CornerRadius = "10" >
+            Border border = new Border() { BorderBrush = Brushes.Transparent, BorderThickness=new Thickness(1),
+                CornerRadius = new CornerRadius(15), Padding=new Thickness(5), Margin=new Thickness(0,0,10,0) };
+            border.Child = new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 60 };
+            return border;
         }
 
-        private void TreeViewItem_Selected(object sender, RoutedEventArgs e)
+        private void ParentItemSelected(object sender, RoutedEventArgs e)
         {
-            TreeViewItem tvi = e.OriginalSource as TreeViewItem;
-            if (tvi == null || e.Handled) return;
-            tvi.IsExpanded = !tvi.IsExpanded;
+            TreeViewItem item = e.OriginalSource as TreeViewItem;
+            if (item == null || e.Handled) return;
+            item.IsExpanded = !item.IsExpanded;
             e.Handled = true;
-            tvi.IsSelected = false;
+            item.IsSelected = false;
+            if (selectedParentItem != null)
+            {
+                //selectedParentItem.Background = item.Background;
+                ((Border)selectedParentItem.Header).Background = item.Background;
+            }
+            ((Border)item.Header).Background = Brushes.AliceBlue;
+            selectedParentItem = item;
+            //MessageBox.Show(tvi.Header.ToString());
+            //MessageBox.Show(((TextBlock)item.Header).Text.ToString());
+
+        }
+        private void ChildItem_Selected(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void ChildItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var item = (TreeViewItem)sender;
-            item.IsSelected = true;
-            item.Background = Brushes.LightBlue;
+            item.IsSelected = false;
+            ((Border)item.Header).Background = Brushes.LightBlue;
+            //MessageBox.Show(((TextBlock)item.Header).Text.ToString());
+            e.Handled = true;
+
         }
+        public void TreeView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+      
+
     }
 }

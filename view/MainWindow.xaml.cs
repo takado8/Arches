@@ -33,6 +33,8 @@ namespace Arches
             //ParentItem.Selected += TreeViewItem_Selected;
 
             treeView.ItemsSource = treatmentsListViewModel.items;
+            //treeView.PreviewMouseLeftButtonDown += treatmentsListViewModel.MyTreeView_PreviewMouseDown;
+            treeView.MouseLeftButtonUp += treatmentsListViewModel.TreeView_MouseLeftButtonUp;
             
             //    Child2Item.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
             //    ParentItem.Items.Add(Child2Item);
@@ -40,6 +42,7 @@ namespace Arches
 
             //TestDb.testDb();
         }
+
         
 
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
