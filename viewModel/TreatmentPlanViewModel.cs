@@ -28,29 +28,53 @@ namespace Arches.viewModel
             this.treatmentPlanGenerator = treatmentPlanGenerator;
         }
 
-        public void updateTreatmentsForSelectedTooth(IList treatments)
+        public void updateTreatmentsForSelectedTooth(TreeViewItem treatment)
         {
             if (!string.IsNullOrEmpty(selectedToothCode) && teethDescriptions.ContainsKey(selectedToothCode))
             {
+                TextBlock? treatmentTextBlock = (TextBlock)((Border)treatment.Header).Child;
+                TextBlock? presentItem = null;
                 if (teethTreatmentsList.ContainsKey(selectedToothCode))
                 {
-                    teethTreatmentsList[selectedToothCode].Clear();
+                    //teethTreatmentsList[selectedToothCode].Clear();
+                    foreach (var item in teethTreatmentsList[selectedToothCode])
+                    {
+                        if (item.Text.Equals(treatmentTextBlock.Text))
+                        {
+                            presentItem = item;
+                            break;
+                        }
+                    }
+                    
                 }
                 else
                 {
                     teethTreatmentsList.Add(selectedToothCode, new List<TextBlock>());
+
                 }
-                teethDescriptions[selectedToothCode].Clear();
-                for (int i = 0; i < treatments.Count; i++)
+                if (presentItem == null)
                 {
-                    var treatmentRaw = treatments[i];
-                    if(treatmentRaw != null)
-                    {
-                        TextBlock treatment = (TextBlock)treatmentRaw;
-                        teethTreatmentsList[selectedToothCode].Add(treatment);
-                        teethDescriptions[selectedToothCode].Add(treatment.Text);
-                    }
+                    teethTreatmentsList[selectedToothCode].Add(treatmentTextBlock);
+                    teethDescriptions[selectedToothCode].Add(treatmentTextBlock.Text);
                 }
+                else
+                {
+                    teethTreatmentsList[selectedToothCode].Remove(presentItem);
+                    teethDescriptions[selectedToothCode].Remove(treatmentTextBlock.Text);
+
+                }
+
+                //teethDescriptions[selectedToothCode].Clear();
+                //for (int i = 0; i < treatments.Count; i++)
+                //{
+                //    var treatmentRaw = treatments[i];
+                //    if(treatmentRaw != null)
+                //    {
+                //        TextBlock treatment = (TextBlock)treatmentRaw;
+                //        teethTreatmentsList[selectedToothCode].Add(treatment);
+                //        teethDescriptions[selectedToothCode].Add(treatment.Text);
+                //    }
+                //}
                 updateTreatmentPlan();
             }
         }

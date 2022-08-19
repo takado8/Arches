@@ -13,12 +13,14 @@ namespace Arches.viewModel
     {
         public ObservableCollection<TreeViewItem> items { get; } = new();
         private SQLiteDataStorage sqliteDataStorage = new();
+        private ITreeViewItemSelected treeViewItemSelected;
         public TreeViewItem? selectedParentItem = null;
         private double treeViewWidth;
 
-        public TreatmentsListViewModel(double treeViewWidth)
+        public TreatmentsListViewModel(double treeViewWidth, ITreeViewItemSelected treeViewItemSelected)
         {
             this.treeViewWidth = treeViewWidth;
+            this.treeViewItemSelected = treeViewItemSelected;
             var itemsFromDb = sqliteDataStorage.getItems();
             if (itemsFromDb != null)
             {
@@ -133,6 +135,7 @@ namespace Arches.viewModel
             item.IsSelected = false;
             ((Border)item.Header).Background = Brushes.AliceBlue;
             //MessageBox.Show(((TextBlock)item.Header).Text.ToString());
+            treeViewItemSelected.treeViewChildItemSelected(item);
             e.Handled = true;
 
         }

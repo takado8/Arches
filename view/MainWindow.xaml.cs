@@ -15,7 +15,7 @@ namespace Arches
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, ITreeViewItemSelected
     {
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
@@ -26,7 +26,7 @@ namespace Arches
         public MainWindow()
         {
             InitializeComponent();
-            treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width);
+            treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
             pdfService = new TreatmentPlanPdfService();
 
@@ -49,12 +49,17 @@ namespace Arches
             lockListboxSelectedEvent = false;
         }
 
-        private void listbox_Selected(object sender, RoutedEventArgs e)
+        public void treeViewChildItemSelected(TreeViewItem treeViewItem)
         {
-            //if (lockListboxSelectedEvent) return;
-            //treatmentPlanViewModel.updateTreatmentsForSelectedTooth(listbox.SelectedItems);
+            treatmentPlanViewModel.updateTreatmentsForSelectedTooth(treeViewItem);
         }
-       
+
+        //private void listbox_Selected(object sender, RoutedEventArgs e)
+        //{
+        //    //if (lockListboxSelectedEvent) return;
+        //    treatmentPlanViewModel.updateTreatmentsForSelectedTooth();
+        //}
+
         private void addTreatmentToList()
         {
             bool result;
