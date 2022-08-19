@@ -16,7 +16,7 @@ namespace Arches.viewModel
         MainWindow mainWindow;
         StackPanel stackPanel;
         Dictionary<string, List<string>> teethDescriptions = new();
-        Dictionary<string, List<TextBlock>> teethTreatmentsList = new();
+        Dictionary<string, List<TreeViewItem>> teethTreatmentsList = new();
         List<string> selectedTeeth = new();
         string selectedToothCode = "";
         Ellipse? selectedToothEllipse;
@@ -33,59 +33,44 @@ namespace Arches.viewModel
             if (!string.IsNullOrEmpty(selectedToothCode) && teethDescriptions.ContainsKey(selectedToothCode))
             {
                 TextBlock? treatmentTextBlock = (TextBlock)((Border)treatment.Header).Child;
-                TextBlock? presentItem = null;
+                TreeViewItem? presentItem = null;
                 if (teethTreatmentsList.ContainsKey(selectedToothCode))
                 {
-                    //teethTreatmentsList[selectedToothCode].Clear();
                     foreach (var item in teethTreatmentsList[selectedToothCode])
                     {
-                        if (item.Text.Equals(treatmentTextBlock.Text))
+                        if (((TextBlock)((Border)item.Header).Child).Text.Equals(treatmentTextBlock.Text))
                         {
                             presentItem = item;
                             break;
                         }
                     }
-                    
                 }
                 else
                 {
-                    teethTreatmentsList.Add(selectedToothCode, new List<TextBlock>());
-
+                    teethTreatmentsList.Add(selectedToothCode, new List<TreeViewItem>());
                 }
                 if (presentItem == null)
                 {
-                    teethTreatmentsList[selectedToothCode].Add(treatmentTextBlock);
+                    teethTreatmentsList[selectedToothCode].Add(treatment);
                     teethDescriptions[selectedToothCode].Add(treatmentTextBlock.Text);
                 }
                 else
                 {
                     teethTreatmentsList[selectedToothCode].Remove(presentItem);
                     teethDescriptions[selectedToothCode].Remove(treatmentTextBlock.Text);
-
+                    ((Border)treatment.Header).Background = Brushes.Transparent;
                 }
-
-                //teethDescriptions[selectedToothCode].Clear();
-                //for (int i = 0; i < treatments.Count; i++)
-                //{
-                //    var treatmentRaw = treatments[i];
-                //    if(treatmentRaw != null)
-                //    {
-                //        TextBlock treatment = (TextBlock)treatmentRaw;
-                //        teethTreatmentsList[selectedToothCode].Add(treatment);
-                //        teethDescriptions[selectedToothCode].Add(treatment.Text);
-                //    }
-                //}
                 updateTreatmentPlan();
             }
         }
 
-        public List<TextBlock> getSelectedToothTreatmentsList()
+        public List<TreeViewItem> getSelectedToothTreatmentsList()
         {
             if (teethTreatmentsList.ContainsKey(selectedToothCode))
             {
                 return teethTreatmentsList[selectedToothCode];
             }
-            return new List<TextBlock>();
+            return new List<TreeViewItem>();
         }
 
         private void updateTreatmentPlan()

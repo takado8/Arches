@@ -20,7 +20,7 @@ namespace Arches
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
         TreatmentPlanPdfService pdfService;
-        bool lockListboxSelectedEvent = false;
+        //bool lockListboxSelectedEvent = false;
         bool isFileSaved = false;
 
         public MainWindow()
@@ -40,25 +40,31 @@ namespace Arches
             treatmentPlanViewModel.selectTooth(clickedAreaEllipse);
 
             var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
-            lockListboxSelectedEvent = true;
-            //listbox.SelectedItems.Clear();
-            //foreach (var treatment in treatments)
-            //{
-            //    listbox.SelectedItems.Add(treatment);
-            //}
-            lockListboxSelectedEvent = false;
+            //lockListboxSelectedEvent = true;
+            clearAllChildSelection();
+            foreach (TreeViewItem treatment in treatments)
+            {
+                ((Border)treatment.Header).Background = Brushes.AliceBlue;
+            }
+            //lockListboxSelectedEvent = false;
+        }
+
+        private void clearAllChildSelection()
+        {
+            foreach (TreeViewItem item in treeView.Items)
+            {
+                foreach (TreeViewItem childItem in item.Items)
+                {
+                    ((Border)childItem.Header).Background = Brushes.Transparent;
+
+                }
+            }
         }
 
         public void treeViewChildItemSelected(TreeViewItem treeViewItem)
         {
             treatmentPlanViewModel.updateTreatmentsForSelectedTooth(treeViewItem);
         }
-
-        //private void listbox_Selected(object sender, RoutedEventArgs e)
-        //{
-        //    //if (lockListboxSelectedEvent) return;
-        //    treatmentPlanViewModel.updateTreatmentsForSelectedTooth();
-        //}
 
         private void addTreatmentToList()
         {
@@ -132,11 +138,11 @@ namespace Arches
             var path = FilePathBrowser.showSaveFileDialog(textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
             if (path != null)
             {
-                lockListboxSelectedEvent = true;
+                //lockListboxSelectedEvent = true;
                 //listbox.SelectedItems.Clear();
-                lockListboxSelectedEvent = false;
+                clearAllChildSelection();
+                //lockListboxSelectedEvent = false;
                 treatmentPlanViewModel.deselectTooth();
-
                 pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
                 //MessageBox.Show("Plik został zapisany.", "Zapisano plik");
                 isFileSaved = true;
@@ -171,9 +177,10 @@ namespace Arches
 
         private void newFile()
         {
-            lockListboxSelectedEvent = true;
+            //lockListboxSelectedEvent = true;
             //listbox.SelectedItems.Clear();
-            lockListboxSelectedEvent = false;
+            clearAllChildSelection();
+            //lockListboxSelectedEvent = false;
             treatmentPlanViewModel.clear();
             textBoxName.Text = "";
             textBoxSurname.Text = "";
