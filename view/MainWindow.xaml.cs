@@ -29,7 +29,6 @@ namespace Arches
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
             pdfService = new TreatmentPlanPdfService();
-
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
         }

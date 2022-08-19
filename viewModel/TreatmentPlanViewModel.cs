@@ -76,7 +76,8 @@ namespace Arches.viewModel
         private void updateTreatmentPlan()
         {
             var selectedTeethDescriptionsFiltered = getSelectedTeethDescriptions();
-            var treatmentPlan = treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered);
+            var treatmentPlan = treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered,
+                selectedToothCode);
             stackPanel.Children.Clear();
             stackPanel.Children.Add(treatmentPlan);
         }

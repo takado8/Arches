@@ -20,5 +20,10 @@
             </Style.Resources>    
         </Style>
 
+        <Style TargetType="ListItem" x:Key="ListItemSelectedStyle">
+            <Setter Property="Background" Value="Pink"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

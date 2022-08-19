@@ -3,12 +3,13 @@ using System.Windows.Documents;
 using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Arches.view
 {
     internal class TreatmentPlanFlowDocumentGenerator
     {
-        public FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
+        public FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth, string selectedToothCode)
         {
             List mainList = initMainList(1);
             FlowDocument flowDocument = new();
@@ -21,7 +22,15 @@ namespace Arches.view
             foreach (var keyValuePair in selectedTeeth)
             {
                 List subList = initSubList();
-                ListItem mainListItem = new ListItem(new Paragraph(new Run(" ząb nr: " + keyValuePair.Key[1] + "." + keyValuePair.Key[2])));
+                var run = new Run(" ząb nr: " + keyValuePair.Key[1] + "." + keyValuePair.Key[2]);
+                var paragraph = new Paragraph(run);
+                ListItem mainListItem = new ListItem(paragraph);
+                if (keyValuePair.Key.Equals(selectedToothCode))
+                {
+                    mainListItem.BorderThickness = new Thickness(1);
+                    mainListItem.BorderBrush = Brushes.DeepPink;
+                }
+
                 foreach (var value in keyValuePair.Value)
                 {
                     ListItem subListItem = new ListItem(new Paragraph(new Run(value)));
