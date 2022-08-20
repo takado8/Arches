@@ -18,7 +18,7 @@ namespace Arches.viewModel
         Dictionary<string, List<string>> teethDescriptions = new();
         Dictionary<string, List<TreeViewItem>> teethTreatmentsList = new();
         List<string> selectedTeeth = new();
-        string selectedToothCode = "";
+        public string selectedToothCode { get; private set; } = "";
         Ellipse? selectedToothEllipse;
 
         public TreatmentPlanViewModel(MainWindow mainWindow, TreatmentPlanFlowDocumentGenerator treatmentPlanGenerator)
@@ -58,7 +58,7 @@ namespace Arches.viewModel
                 {
                     teethTreatmentsList[selectedToothCode].Remove(presentItem);
                     teethDescriptions[selectedToothCode].Remove(treatmentTextBlock.Text);
-                    ((Border)treatment.Header).Background = Brushes.Transparent;
+                    //((Border)treatment.Header).Background = Brushes.Transparent;
                 }
                 updateTreatmentPlan();
             }
@@ -220,5 +220,11 @@ namespace Arches.viewModel
             }
             updateTreatmentPlan();
         }
+
+        public bool isSelectionEmpty()
+        {
+            return teethTreatmentsList.Count < 1;
+        }
+
     }
 }

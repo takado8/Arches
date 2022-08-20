@@ -16,6 +16,7 @@ namespace Arches.viewModel
         private ITreeViewItemSelected treeViewItemSelected;
         public TreeViewItem? selectedParentItem = null;
         private double treeViewWidth;
+        public bool parentItemSelectedCallbackLocked = false;
 
         public TreatmentsListViewModel(double treeViewWidth, ITreeViewItemSelected treeViewItemSelected)
         {
@@ -89,19 +90,35 @@ namespace Arches.viewModel
             }
         }
 
-        public void deleteItem(TreeViewItem itemToDelete)
+        public void deleteTreatmentCategoryItem(TreeViewItem itemToDelete)
+        {
+            if (itemToDelete != null)
+            {
+                parentItemSelectedCallbackLocked = true;
+                if (selectedParentItem == itemToDelete)
+                {
+                    selectedParentItem = null;
+                }
+                var description = ((TextBlock)((Border)itemToDelete.Header).Child).Text;
+                items.Remove(itemToDelete);
+                parentItemSelectedCallbackLocked = false;
+                sqliteDataStorage.deleteTreatmentCategoryAsync(description);
+            }      
+        }
+
+        public void deleteTreatmentItem(TreeViewItem itemToDelete)
         {
             if (itemToDelete != null)
             {
                 var description = ((TextBlock)((Border)itemToDelete.Header).Child).Text;
-                items.Remove(itemToDelete);
-                sqliteDataStorage.delItemAsync(description);
-            }      
+                TreeViewItem parent = itemToDelete.Parent as TreeViewItem;
+                parent.Items.Remove(itemToDelete);
+                sqliteDataStorage.deleteTreatmentAsync(description);
+            }
         }
 
         private Border makeTextBlock(string descritpion)
         {
-            //< Border Margin = "5" Padding = "5" BorderThickness = "1" BorderBrush = "Red" Background = "AntiqueWhite" CornerRadius = "10" >
             Border border = new Border() { BorderBrush = Brushes.Transparent, BorderThickness=new Thickness(1),
                 CornerRadius = new CornerRadius(15), Padding=new Thickness(5,5,5,9), VerticalAlignment=VerticalAlignment.Center,
             HorizontalAlignment=HorizontalAlignment.Center};
@@ -113,13 +130,13 @@ namespace Arches.viewModel
         private void ParentItemSelected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = e.OriginalSource as TreeViewItem;
-            if (item == null || e.Handled) return;
+            if (item == null || e.Handled || parentItemSelectedCallbackLocked) return;
             item.IsExpanded = !item.IsExpanded;
             e.Handled = true;
             item.IsSelected = false;
             if (selectedParentItem != null)
             {
-                ((Border)selectedParentItem.Header).Background = item.Background;
+                ((Border)selectedParentItem.Header).Background = Brushes.Transparent;
             }
             ((Border)item.Header).Background = Brushes.LightBlue;
             selectedParentItem = item;
@@ -133,8 +150,15 @@ namespace Arches.viewModel
         {
             var item = (TreeViewItem)sender;
             item.IsSelected = false;
-            ((Border)item.Header).Background = Brushes.AliceBlue;
-            //MessageBox.Show(((TextBlock)item.Header).Text.ToString());
+            Border itemBorder = (Border)item.Header;
+            if (itemBorder.Background == Brushes.AliceBlue)
+            {
+                itemBorder.Background = Brushes.Transparent;
+            }
+            else
+            {
+                itemBorder.Background = Brushes.AliceBlue;
+            }
             treeViewItemSelected.treeViewChildItemSelected(item);
             e.Handled = true;
 
@@ -148,8 +172,6 @@ namespace Arches.viewModel
                 selectedParentItem = null;
             }
         }
-
-
 
     }
 }

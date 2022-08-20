@@ -78,7 +78,12 @@ namespace Arches.service
             await connection.InsertAsync(treatment);
         }
 
-        public async Task delItemAsync(string itemHeader)
+        public async Task deleteTreatmentAsync(string treatmentDescription)
+        {
+            await connection.QueryAsync<Treatment>("DELETE FROM treatments WHERE description='" + treatmentDescription + "';");
+        }
+
+        public async Task deleteTreatmentCategoryAsync(string itemHeader)
         {
             var result = connection.QueryAsync<TreatmentCategory>("SELECT * FROM treatmentsCategories WHERE header='" + itemHeader + "';");
             result.Wait();

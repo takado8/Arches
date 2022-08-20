@@ -3,6 +3,7 @@ using Arches.tests;
 using Arches.view;
 using Arches.viewModel;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,14 @@ namespace Arches
             pdfService = new TreatmentPlanPdfService();
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
+            treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
+            
             stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            //MessageBox.Show("changed.");
         }
 
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -46,10 +54,7 @@ namespace Arches
 
         private void scrollToCursorFramePosition()
         {
-            //if (cursorFramePosition != 0)
-            //{
-                scrollViewerStackPanel.ScrollToVerticalOffset(cursorFramePosition);
-            //}
+            scrollViewerStackPanel.ScrollToVerticalOffset(cursorFramePosition);
         }
 
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
@@ -113,8 +118,38 @@ namespace Arches
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {
-            var selected = (TreeViewItem) treeView.SelectedItem;
-            treatmentsListViewModel.deleteItem(selected);
+            if (treatmentPlanViewModel.isSelectionEmpty())
+            {
+                List<TreeViewItem> selectedChildren = new();
+
+                foreach (TreeViewItem parentItem in treatmentsListViewModel.items)
+                {
+                    foreach (TreeViewItem childItem in parentItem.Items)
+                    {
+                        if (((Border)childItem.Header).Background == Brushes.AliceBlue)
+                        {
+                            selectedChildren.Add(childItem);
+                        }
+                    }
+                }
+                if (selectedChildren.Count > 0)
+                {
+                    foreach (var item in selectedChildren)
+                    {
+                        treatmentsListViewModel.deleteTreatmentItem(item);
+                    }
+                }
+                else
+                {
+                    var selected = (TreeViewItem)treeView.SelectedItem;
+                    treatmentsListViewModel.deleteTreatmentCategoryItem(selected);
+                    var selectedNew = (TreeViewItem)treeView.SelectedItem;
+                    if (selectedNew != null)
+                    {
+                        selectedNew.IsSelected = false;
+                    }
+                }
+            }   
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
