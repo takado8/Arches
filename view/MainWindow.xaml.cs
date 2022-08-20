@@ -15,24 +15,43 @@ namespace Arches
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, ITreeViewItemSelected
+    public partial class MainWindow : Window, ITreeViewItemSelected, INotifyCursorFramePosition
     {
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
         TreatmentPlanPdfService pdfService;
-        //bool lockListboxSelectedEvent = false;
+        double cursorFramePosition = 0;
         bool isFileSaved = false;
 
         public MainWindow()
         {
             InitializeComponent();
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
-            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator());
+            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this));
             pdfService = new TreatmentPlanPdfService();
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
+            stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
         }
-      
+
+        private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            scrollToCursorFramePosition();
+        }
+
+        public void cursorFramePositionChanged(double cursorFramePosition)
+        {
+            this.cursorFramePosition = cursorFramePosition;
+        }
+
+        private void scrollToCursorFramePosition()
+        {
+            //if (cursorFramePosition != 0)
+            //{
+                scrollViewerStackPanel.ScrollToVerticalOffset(cursorFramePosition);
+            //}
+        }
+
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
         {
             Ellipse clickedAreaEllipse = (Ellipse)sender;
@@ -46,6 +65,7 @@ namespace Arches
                 ((Border)treatment.Header).Background = Brushes.AliceBlue;
             }
             //lockListboxSelectedEvent = false;
+            scrollToCursorFramePosition();
         }
 
         private void clearAllChildSelection()

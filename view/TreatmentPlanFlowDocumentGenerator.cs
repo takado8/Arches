@@ -4,11 +4,17 @@ using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Arches.viewModel;
 
 namespace Arches.view
 {
     internal class TreatmentPlanFlowDocumentGenerator
     {
+        INotifyCursorFramePosition cursorPositionNotifier;
+        public TreatmentPlanFlowDocumentGenerator(INotifyCursorFramePosition cursorPositionNotifier)
+        {
+            this.cursorPositionNotifier = cursorPositionNotifier;
+        }
         public FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth, string selectedToothCode)
         {
             List mainList = initMainList(1);
@@ -18,19 +24,15 @@ namespace Arches.view
             flowViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
-
+            double flowViewerLastSize = 0;
+            double cursorFramePosition = 0;
             foreach (var keyValuePair in selectedTeeth)
             {
                 List subList = initSubList();
                 var run = new Run(" ząb nr: " + keyValuePair.Key[1] + "." + keyValuePair.Key[2]);
                 var paragraph = new Paragraph(run);
                 ListItem mainListItem = new ListItem(paragraph);
-                if (keyValuePair.Key.Equals(selectedToothCode))
-                {
-                    mainListItem.BorderThickness = new Thickness(1);
-                    mainListItem.BorderBrush = Brushes.DeepPink;
-                }
-
+                
                 foreach (var value in keyValuePair.Value)
                 {
                     ListItem subListItem = new ListItem(new Paragraph(new Run(value)));
@@ -38,6 +40,15 @@ namespace Arches.view
                 }
                 mainListItem.Blocks.Add(subList);
                 mainList.ListItems.Add(mainListItem);
+                if (keyValuePair.Key.Equals(selectedToothCode) && selectedTeeth.Count > 1)
+                {
+                    mainListItem.BorderThickness = new Thickness(1);
+                    mainListItem.BorderBrush = Brushes.DeepPink;
+                    cursorFramePosition = flowViewerLastSize;
+                    cursorPositionNotifier.cursorFramePositionChanged(cursorFramePosition);
+                    //MessageBox.Show(getDesiredHeight(flowViewer).ToString());
+                }
+                flowViewerLastSize = getDesiredHeight(flowViewer);
             }
             return flowViewer;
         }
@@ -75,12 +86,17 @@ namespace Arches.view
             return listParts;
         }
 
-        private bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
+        private double getDesiredHeight(FlowDocumentScrollViewer flowViewer)
         {
             flowViewer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
             flowViewer.Arrange(new Rect(flowViewer.DesiredSize));
             flowViewer.UpdateLayout();
-            return flowViewer.DesiredSize.Height > 800;
+            return flowViewer.DesiredSize.Height;
+        }
+
+        private bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
+        {
+            return getDesiredHeight(flowViewer) > 800;
         }
         private FlowDocumentScrollViewer initFlowViewer(List mainList)
         {
