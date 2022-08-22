@@ -5,7 +5,6 @@ using Arches.model;
 using Arches.service;
 using System.Collections.Generic;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Arches.viewModel
 {
@@ -163,7 +162,6 @@ namespace Arches.viewModel
             }
             treeViewItemSelected.treeViewChildItemSelected(item);
             e.Handled = true;
-
         }
         public void TreeView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         { 
@@ -174,6 +172,5 @@ namespace Arches.viewModel
                 selectedParentItem = null;
             }
         }
-
     }
 }

@@ -29,15 +29,8 @@ namespace Arches
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this));
             pdfService = new TreatmentPlanPdfService();
             treeView.ItemsSource = treatmentsListViewModel.items;
-            treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
-            treeView.SelectedItemChanged += TreeView_SelectedItemChanged;
-            
+            treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;            
             stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
-        }
-
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            //MessageBox.Show("changed.");
         }
 
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -61,13 +54,11 @@ namespace Arches
             treatmentPlanViewModel.selectTooth(clickedAreaEllipse);
 
             var treatments = treatmentPlanViewModel.getSelectedToothTreatmentsList();
-            //lockListboxSelectedEvent = true;
             clearAllChildSelection();
             foreach (TreeViewItem treatment in treatments)
             {
                 ((Border)treatment.Header).Background = Constants.getSelectedItemBrush();
             }
-            //lockListboxSelectedEvent = false;
             scrollToCursorFramePosition();
         }
 
@@ -78,7 +69,6 @@ namespace Arches
                 foreach (TreeViewItem childItem in item.Items)
                 {
                     ((Border)childItem.Header).Background = Constants.getUnselectedItemBrush();
-
                 }
             }
         }
@@ -101,7 +91,6 @@ namespace Arches
             {
                 result = treatmentsListViewModel.updateItem(selected, newItemDescription);
             }
-
             if (result)
             {
                 textBoxNewListItem.Text = "";
@@ -194,13 +183,9 @@ namespace Arches
             var path = FilePathBrowser.showSaveFileDialog(textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
             if (path != null)
             {
-                //lockListboxSelectedEvent = true;
-                //listbox.SelectedItems.Clear();
                 clearAllChildSelection();
-                //lockListboxSelectedEvent = false;
                 treatmentPlanViewModel.deselectTooth();
                 pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
-                //MessageBox.Show("Plik został zapisany.", "Zapisano plik");
                 isFileSaved = true;
                 
                 string argument = "/select, \"" + path + "\"";
@@ -233,10 +218,7 @@ namespace Arches
 
         private void newFile()
         {
-            //lockListboxSelectedEvent = true;
-            //listbox.SelectedItems.Clear();
             clearAllChildSelection();
-            //lockListboxSelectedEvent = false;
             treatmentPlanViewModel.clear();
             textBoxName.Text = "";
             textBoxSurname.Text = "";

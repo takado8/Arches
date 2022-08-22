@@ -11,19 +11,14 @@
                 </Style>
             </Style.Resources>
         </Style>
-        
+
         <Style TargetType="TextBox">
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
-            </Style.Resources>    
+            </Style.Resources>
         </Style>
 
-        <Style TargetType="ListItem" x:Key="ListItemSelectedStyle">
-            <Setter Property="Background" Value="Pink"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-        
     </Application.Resources>
 </Application>

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows;
 using Arches.model;
-using SQLiteNetExtensions;
 using SQLite;
 using System.Collections.Generic;
 
@@ -13,9 +11,7 @@ namespace Arches.service
     {
         const string databaseName = "treatments_db2";
         string databasePath = Path.Combine(Environment.CurrentDirectory, databaseName);
-
         SQLiteAsyncConnection connection;
-        //SQLiteConnection conn;
 
         public SQLiteDataStorage()
         {

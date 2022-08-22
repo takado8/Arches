@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -32,7 +31,6 @@ namespace Arches.service
             PageContent pageContent = new PageContent();
             FixedPage fixedPage = makeFixedPage();
             Grid grid = makeFirstPageGrid();
-
             
             Image image = makeImage(imageGrid);
 
@@ -152,18 +150,6 @@ namespace Arches.service
             grid.VerticalAlignment = VerticalAlignment.Center;
             grid.ColumnDefinitions.Add(new ColumnDefinition());
             grid.ColumnDefinitions.Add(new ColumnDefinition());
-            
-            //string strUri = System.IO.Path.Join(Environment.CurrentDirectory, "resources/dentify_logo.png");
-            //Image img = new Image();
-            //img.Source = new BitmapImage(new Uri(strUri));
-            //img.Height = PAGE_A4_HEIGHT;
-            //img.Width = PAGE_A4_WIDTH;
-
-            //ImageBrush myBrush = new ImageBrush();
-            //myBrush.ImageSource = img.Source;
-            //myBrush.Stretch = Stretch.Uniform;
-            //myBrush.Opacity = 0.1;
-            //grid.Background = myBrush;
             return grid;
         }
 

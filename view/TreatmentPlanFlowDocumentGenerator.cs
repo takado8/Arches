@@ -3,7 +3,6 @@ using System.Windows.Documents;
 using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Arches.viewModel;
 
 namespace Arches.view
