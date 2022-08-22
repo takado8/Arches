@@ -1,5 +1,4 @@
 ﻿using Arches.service;
-using Arches.tests;
 using Arches.view;
 using Arches.viewModel;
 using System;
@@ -8,7 +7,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Arches
@@ -67,7 +65,7 @@ namespace Arches
             clearAllChildSelection();
             foreach (TreeViewItem treatment in treatments)
             {
-                ((Border)treatment.Header).Background = Brushes.AliceBlue;
+                ((Border)treatment.Header).Background = Constants.getSelectedItemBrush();
             }
             //lockListboxSelectedEvent = false;
             scrollToCursorFramePosition();
@@ -79,7 +77,7 @@ namespace Arches
             {
                 foreach (TreeViewItem childItem in item.Items)
                 {
-                    ((Border)childItem.Header).Background = Brushes.Transparent;
+                    ((Border)childItem.Header).Background = Constants.getUnselectedItemBrush();
 
                 }
             }
@@ -130,7 +128,7 @@ namespace Arches
                 {
                     foreach (TreeViewItem childItem in parentItem.Items)
                     {
-                        if (((Border)childItem.Header).Background == Brushes.AliceBlue)
+                        if (((Border)childItem.Header).Background == Constants.getSelectedItemBrush())
                         {
                             selectedChildren.Add(childItem);
                         }

@@ -1,7 +1,5 @@
 ﻿using Arches.view;
-using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -58,7 +56,6 @@ namespace Arches.viewModel
                 {
                     teethTreatmentsList[selectedToothCode].Remove(presentItem);
                     teethDescriptions[selectedToothCode].Remove(treatmentTextBlock.Text);
-                    //((Border)treatment.Header).Background = Brushes.Transparent;
                 }
                 updateTreatmentPlan();
             }

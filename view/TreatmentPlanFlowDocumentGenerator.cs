@@ -43,7 +43,7 @@ namespace Arches.view
                 if (keyValuePair.Key.Equals(selectedToothCode) && selectedTeeth.Count > 1)
                 {
                     mainListItem.BorderThickness = new Thickness(1);
-                    mainListItem.BorderBrush = Brushes.DeepPink;
+                    mainListItem.BorderBrush = Constants.getCursorFrameBrush();
                     cursorFramePosition = flowViewerLastSize;
                     cursorPositionNotifier.cursorFramePositionChanged(cursorFramePosition);
                     //MessageBox.Show(getDesiredHeight(flowViewer).ToString());

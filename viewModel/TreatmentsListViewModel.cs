@@ -121,7 +121,7 @@ namespace Arches.viewModel
 
         private Border makeTextBlock(string descritpion)
         {
-            Border border = new Border() { BorderBrush = Brushes.Transparent, BorderThickness=new Thickness(1),
+            Border border = new Border() { BorderBrush = Constants.getUnselectedItemBrush(), BorderThickness=new Thickness(1),
                 CornerRadius = new CornerRadius(15), Padding=new Thickness(5,5,5,9), VerticalAlignment=VerticalAlignment.Center,
             HorizontalAlignment=HorizontalAlignment.Center};
             border.Child = new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 72,
@@ -138,9 +138,9 @@ namespace Arches.viewModel
             item.IsSelected = false;
             if (selectedParentItem != null)
             {
-                ((Border)selectedParentItem.Header).Background = Brushes.Transparent;
+                ((Border)selectedParentItem.Header).Background = Constants.getUnselectedItemBrush();
             }
-            ((Border)item.Header).Background = Brushes.LightBlue;
+            ((Border)item.Header).Background = Constants.getSelectedCategoryItemBrush();
             selectedParentItem = item;
         }
         private void ChildItem_Selected(object sender, RoutedEventArgs e)
@@ -153,13 +153,13 @@ namespace Arches.viewModel
             var item = (TreeViewItem)sender;
             item.IsSelected = false;
             Border itemBorder = (Border)item.Header;
-            if (itemBorder.Background == Brushes.AliceBlue)
+            if (itemBorder.Background == Constants.getSelectedItemBrush())
             {
-                itemBorder.Background = Brushes.Transparent;
+                itemBorder.Background = Constants.getUnselectedItemBrush();
             }
             else
             {
-                itemBorder.Background = Brushes.AliceBlue;
+                itemBorder.Background = Constants.getSelectedItemBrush();
             }
             treeViewItemSelected.treeViewChildItemSelected(item);
             e.Handled = true;
@@ -169,7 +169,7 @@ namespace Arches.viewModel
         { 
             if (selectedParentItem != null)
             {
-                ((Border)selectedParentItem.Header).Background = Brushes.Transparent;
+                ((Border)selectedParentItem.Header).Background = Constants.getUnselectedItemBrush();
                 selectedParentItem.IsSelected = false;
                 selectedParentItem = null;
             }
