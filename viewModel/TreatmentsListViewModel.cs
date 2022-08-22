@@ -123,7 +123,7 @@ namespace Arches.viewModel
             Border border = new Border() { BorderBrush = Constants.getUnselectedItemBrush(), BorderThickness=new Thickness(1),
                 CornerRadius = new CornerRadius(15), Padding=new Thickness(5,5,5,9), VerticalAlignment=VerticalAlignment.Center,
             HorizontalAlignment=HorizontalAlignment.Center};
-            border.Child = new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 72,
+            border.Child = new TextBlock() { Text = descritpion, TextWrapping = TextWrapping.Wrap, Width = treeViewWidth - 76,
                 HorizontalAlignment=HorizontalAlignment.Center, VerticalAlignment=VerticalAlignment.Center, TextAlignment=TextAlignment.Left };
             return border;
         }
