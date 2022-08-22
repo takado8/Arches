@@ -101,13 +101,17 @@ namespace Arches
             }
             else
             {
-                treatmentsListViewModel.updateItem(selected, newItemDescription);
-                result = true;
+                result = treatmentsListViewModel.updateItem(selected, newItemDescription);
             }
 
             if (result)
             {
                 textBoxNewListItem.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Nie udało się dodać zabiegu. Sprawdź czy zabieg nie znajduje się już na liście.",
+                    "Błąd");
             }
         }
 

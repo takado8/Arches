@@ -54,7 +54,7 @@ namespace Arches.viewModel
             }
             foreach (TreeViewItem item in items)
             {
-                if (item.Header.Equals(newTreatmentDescription))
+                if (((TextBlock)((Border)item.Header).Child).Text.Equals(newTreatmentDescription))
                 {
                     return false;
                 }
@@ -68,7 +68,7 @@ namespace Arches.viewModel
             return true;
         }
 
-        public async void updateItem(TreeViewItem parentItem, string newChildItemDescription)
+        public bool updateItem(TreeViewItem parentItem, string newChildItemDescription)
         {
             if (parentItem != null && !string.IsNullOrWhiteSpace(newChildItemDescription))
             {
@@ -85,9 +85,11 @@ namespace Arches.viewModel
                         fromDb.treatments = new List<Treatment>();
                     }
                     Treatment newTreatment = new Treatment(newChildItemDescription) { treatmentCategoryId = fromDb.Id };
-                    await sqliteDataStorage.addTreatmentAsync(newTreatment);
+                    sqliteDataStorage.addTreatmentAsync(newTreatment);
+                    return true;
                 }
             }
+            return false;
         }
 
         public void deleteTreatmentCategoryItem(TreeViewItem itemToDelete)
