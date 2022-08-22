@@ -11,9 +11,17 @@ namespace Arches.service
         public static string? showSaveFileDialog(string name, string surname, string birthdate)
         {
             string filename;
-            if (isValidCredentials(name, surname, birthdate))
+            if (isValidCredentials(name, surname))
             {
-                filename = surname + "_" + name + "_ur_" + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"); ;
+                if (birthdate == null)
+                {
+                    birthdate = "";
+                }
+                else if (!string.IsNullOrEmpty(birthdate))
+                {
+                    birthdate = "_ur_" + birthdate;
+                }
+                filename = surname + "_" + name + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"); ;
             }
             else
             {
@@ -47,10 +55,9 @@ namespace Arches.service
             return null;
         }
 
-        private static bool isValidCredentials(string name, string surname, string birthdate)
+        private static bool isValidCredentials(string name, string surname)
         {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname)
-              || string.IsNullOrEmpty(birthdate))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname))
             {
                 return false;
             }

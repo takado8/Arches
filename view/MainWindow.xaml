@@ -16,14 +16,7 @@
             <ColumnDefinition Width="309*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu DockPanel.Dock="Top" Background="WhiteSmoke">
-            <MenuItem Header="_Plik">
-                <MenuItem Header="_Nowy" Click="MenuItemNewFile_Click"/>
-                <MenuItem Header="_Zapisz" Click="MenuItemSave_Click"/>
-                <Separator />
-                <MenuItem Header="_Zakończ" Click="MenuItemExit_Click" />
-            </MenuItem>
-        </Menu>
+
 
         <Grid x:Name="imageGrid" Grid.Column="2">
             <Image x:Name="archImage" Grid.Column="0" Stretch="Uniform" Source="/resources/main.png" Margin="-73,60,51,0" />
@@ -373,7 +366,7 @@
 
         </Grid>
 
-        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,24,0,101" FontSize="16" HorizontalAlignment="Left" Width="264">
+        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,51,0,101" FontSize="16" HorizontalAlignment="Center" Width="264">
             <TreeView.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -406,6 +399,8 @@
         <Label Grid.Column="1" Content="Imię" HorizontalAlignment="Left" Margin="1,2,0,0" VerticalAlignment="Top" Height="27"/>
         <Label Grid.Column="2" Content="Nazwisko" HorizontalAlignment="Left" Margin="58,2,0,0" VerticalAlignment="Top" Height="27"/>
         <Label Grid.Column="2" Content="Data urodzenia" HorizontalAlignment="Left" Margin="196,2,0,0" VerticalAlignment="Top" Height="27"/>
+        <Button Content="Nowy dokument" HorizontalAlignment="Left" Height="30" Margin="84,10,0,0" VerticalAlignment="Top" Width="107" Click="MenuItemNewFile_Click"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Height="30" Margin="9,10,0,0" VerticalAlignment="Top" Width="61" Click="MenuItemSave_Click"/>
 
     </Grid>
 
