@@ -13,11 +13,11 @@ namespace Arches.service
             string filename;
             if (isValidCredentials(name, surname, birthdate))
             {
-                filename = surname + "_" + name + "_" + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy"); ;
+                filename = surname + "_" + name + "_ur_" + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"); ;
             }
             else
             {
-                filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm");
+                filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss");
             }
             createDefaultDirectory();
             
