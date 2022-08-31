@@ -73,10 +73,12 @@ namespace Arches.viewModel
         private void updateTreatmentPlan()
         {
             var selectedTeethDescriptionsFiltered = getSelectedTeethDescriptions();
-            var treatmentPlan = treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered,
-                selectedToothCode);
             stackPanel.Children.Clear();
+
+            var treatmentPlan = new FlowDocumentScrollViewer();
             stackPanel.Children.Add(treatmentPlan);
+            treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered,
+                selectedToothCode, treatmentPlan);
         }
 
         private Dictionary<string, List<string>> getSelectedTeethDescriptions()

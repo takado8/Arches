@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Arches" Height="660" Width="1085"
         Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        Loaded="Window_Loaded"
         >
     <Grid>
         <Grid.ColumnDefinitions>
@@ -380,7 +381,7 @@
         <TextBox x:Name="textBoxNewListItem" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,57" TextWrapping="Wrap" Text="Nowy zabieg..." VerticalAlignment="Bottom" Width="264" Height="32" FontSize="16" Grid.ColumnSpan="2" GotFocus="textBoxNewListItem_GotFocus" KeyDown="textBoxNewListItem_KeyDown"/>
         <Button x:Name="buttonAdd" Content="Dodaj do listy" Margin="10,0,124,15" VerticalAlignment="Bottom" IsCancel="True" Height="30"  FontSize="14" Click="buttonAdd_Click"/>
         <Button x:Name="buttonDelete" Content="Usuń" HorizontalAlignment="Left" Margin="173,0,0,15" VerticalAlignment="Bottom" IsCancel="True" Height="30" Width="100" Click="buttonDelete_Click" FontSize="14"/>
-        <Border BorderThickness="0.5" CornerRadius="5" Background="White" BorderBrush="#666666" Grid.Column="2" Margin="318,24,34,29" Grid.ColumnSpan="2">
+        <Border BorderThickness="0.5" x:Name="borderStackPanel" CornerRadius="5" Background="White" BorderBrush="#666666" Grid.Column="2" Margin="318,24,34,29" Grid.ColumnSpan="2">
             <ScrollViewer x:Name="scrollViewerStackPanel" Margin="2,2,2,2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="stackPanel" Background="White" CanVerticallyScroll="True" PreviewMouseWheel="stackPanel_PreviewMouseWheel"/>
             </ScrollViewer>

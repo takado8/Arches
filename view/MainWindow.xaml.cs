@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Arches
@@ -25,27 +26,44 @@ namespace Arches
         public MainWindow()
         {
             InitializeComponent();
+
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
-            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this));
+
+            //treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
+            //    scrollViewerStackPanel));
             pdfService = new TreatmentPlanPdfService();
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;            
             stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
+               stackPanel));
+          
+        }
+
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             scrollToCursorFramePosition();
+
+            //scrollViewerStackPanel.Background = Brushes.Red;
+            //MessageBox.Show(scrollViewerStackPanel.ActualHeight.ToString());
+
         }
 
         public void cursorFramePositionChanged(double cursorFramePosition)
         {
             this.cursorFramePosition = cursorFramePosition;
+            //MessageBox.Show(cursorFramePosition.ToString());
+
         }
 
         private void scrollToCursorFramePosition()
         {
-            scrollViewerStackPanel.ScrollToVerticalOffset(cursorFramePosition);
+            var position = cursorFramePosition;
+            scrollViewerStackPanel.ScrollToVerticalOffset(position);
         }
 
         private void ellipseToothAreaClicked(object sender, MouseButtonEventArgs e)
@@ -225,5 +243,6 @@ namespace Arches
             datepickerBirthday.Text = "";
             isFileSaved = false;
         }
+
     }
 }

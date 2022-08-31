@@ -4,34 +4,42 @@ using System.Windows;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using Arches.viewModel;
+using Arches.service;
 
 namespace Arches.view
 {
     internal class TreatmentPlanFlowDocumentGenerator
     {
         INotifyCursorFramePosition cursorPositionNotifier;
-        public TreatmentPlanFlowDocumentGenerator(INotifyCursorFramePosition cursorPositionNotifier)
+        private StackPanel stackPanel;
+        private const double maxFrameHeight = 540;
+        public TreatmentPlanFlowDocumentGenerator(INotifyCursorFramePosition cursorPositionNotifier, StackPanel stackPanel)
         {
             this.cursorPositionNotifier = cursorPositionNotifier;
+            this.stackPanel = stackPanel;
         }
-        public FlowDocumentScrollViewer createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth, string selectedToothCode)
+        public void createTreatmentPlan(Dictionary<string, List<string>> selectedTeeth,
+            string selectedToothCode, FlowDocumentScrollViewer flowViewer)
         {
             List mainList = initMainList(1);
             FlowDocument flowDocument = new();
             flowDocument.Blocks.Add(mainList);
-            FlowDocumentScrollViewer flowViewer = new();
+            //FlowDocumentScrollViewer flowViewer = new();
             flowViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
-            double flowViewerLastSize = 0;
             double cursorFramePosition = 0;
+            //var flowViewerInitialHeight = Utils.getDesiredHeight(stackPanel);
+            double stackPanelLastHeight = Utils.getDesiredHeight(stackPanel);
+            int i = 0;
             foreach (var keyValuePair in selectedTeeth)
             {
+                i++;
                 List subList = initSubList();
                 var run = new Run(" ząb nr: " + keyValuePair.Key[1] + "." + keyValuePair.Key[2]);
                 var paragraph = new Paragraph(run);
                 ListItem mainListItem = new ListItem(paragraph);
-                
+
                 foreach (var value in keyValuePair.Value)
                 {
                     ListItem subListItem = new ListItem(new Paragraph(new Run(value)));
@@ -39,17 +47,33 @@ namespace Arches.view
                 }
                 mainListItem.Blocks.Add(subList);
                 mainList.ListItems.Add(mainListItem);
+
+                var stackPanelCurrentHeight = Utils.getDesiredHeight(stackPanel);
+                var elementHeight = stackPanelCurrentHeight - stackPanelLastHeight;
+                //MessageBox.Show(stackPanelInitialHeight.ToString());
+                //MessageBox.Show(elementHeight.ToString());
+                //MessageBox.Show(stackPanelCurrentHeight.ToString());
+
                 if (keyValuePair.Key.Equals(selectedToothCode) && selectedTeeth.Count > 1)
                 {
                     mainListItem.BorderThickness = new Thickness(1);
                     mainListItem.BorderBrush = Constants.getCursorFrameBrush();
-                    cursorFramePosition = flowViewerLastSize;
+                    if (elementHeight > maxFrameHeight)
+                    {
+                        cursorFramePosition = stackPanelCurrentHeight - maxFrameHeight;
+                    }
+                    else
+                    {
+                        var correction = i == 1 ? 20 : 15;
+                        cursorFramePosition = stackPanelLastHeight - correction;
+                    }
+                    
                     cursorPositionNotifier.cursorFramePositionChanged(cursorFramePosition);
                     //MessageBox.Show(getDesiredHeight(flowViewer).ToString());
                 }
-                flowViewerLastSize = getDesiredHeight(flowViewer);
+                stackPanelLastHeight = stackPanelCurrentHeight;
             }
-            return flowViewer;
+            //return flowViewer;
         }
 
         public List<FlowDocumentScrollViewer> createPrintableTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
@@ -85,17 +109,11 @@ namespace Arches.view
             return listParts;
         }
 
-        private double getDesiredHeight(FlowDocumentScrollViewer flowViewer)
-        {
-            flowViewer.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-            flowViewer.Arrange(new Rect(flowViewer.DesiredSize));
-            flowViewer.UpdateLayout();
-            return flowViewer.DesiredSize.Height;
-        }
+       
 
         private bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
         {
-            return getDesiredHeight(flowViewer) > 800;
+            return Utils.getDesiredHeight(flowViewer) > 800;
         }
         private FlowDocumentScrollViewer initFlowViewer(List mainList)
         {
