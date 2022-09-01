@@ -28,9 +28,6 @@ namespace Arches
             InitializeComponent();
 
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
-
-            //treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
-            //    scrollViewerStackPanel));
             pdfService = new TreatmentPlanPdfService();
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;            
@@ -40,24 +37,17 @@ namespace Arches
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
-               stackPanel));
-          
+               stackPanel));        
         }
 
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             scrollToCursorFramePosition();
-
-            //scrollViewerStackPanel.Background = Brushes.Red;
-            //MessageBox.Show(scrollViewerStackPanel.ActualHeight.ToString());
-
         }
 
         public void cursorFramePositionChanged(double cursorFramePosition)
         {
             this.cursorFramePosition = cursorFramePosition;
-            //MessageBox.Show(cursorFramePosition.ToString());
-
         }
 
         private void scrollToCursorFramePosition()
