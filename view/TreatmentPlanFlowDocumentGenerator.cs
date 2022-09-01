@@ -12,7 +12,7 @@ namespace Arches.view
     {
         INotifyCursorFramePosition cursorPositionNotifier;
         private StackPanel stackPanel;
-        private const double maxFrameHeight = 540;
+        private const double MAX_FRAME_HEIGHT = 540;
         public TreatmentPlanFlowDocumentGenerator(INotifyCursorFramePosition cursorPositionNotifier, StackPanel stackPanel)
         {
             this.cursorPositionNotifier = cursorPositionNotifier;
@@ -24,12 +24,10 @@ namespace Arches.view
             List mainList = initMainList(1);
             FlowDocument flowDocument = new();
             flowDocument.Blocks.Add(mainList);
-            //FlowDocumentScrollViewer flowViewer = new();
             flowViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
             double cursorFramePosition = 0;
-            //var flowViewerInitialHeight = Utils.getDesiredHeight(stackPanel);
             double stackPanelLastHeight = Utils.getDesiredHeight(stackPanel);
             int i = 0;
             foreach (var keyValuePair in selectedTeeth)
@@ -50,30 +48,24 @@ namespace Arches.view
 
                 var stackPanelCurrentHeight = Utils.getDesiredHeight(stackPanel);
                 var elementHeight = stackPanelCurrentHeight - stackPanelLastHeight;
-                //MessageBox.Show(stackPanelInitialHeight.ToString());
-                //MessageBox.Show(elementHeight.ToString());
-                //MessageBox.Show(stackPanelCurrentHeight.ToString());
 
                 if (keyValuePair.Key.Equals(selectedToothCode) && selectedTeeth.Count > 1)
                 {
                     mainListItem.BorderThickness = new Thickness(1);
                     mainListItem.BorderBrush = Constants.getCursorFrameBrush();
-                    if (elementHeight > maxFrameHeight)
+                    if (elementHeight > MAX_FRAME_HEIGHT)
                     {
-                        cursorFramePosition = stackPanelCurrentHeight - maxFrameHeight;
+                        cursorFramePosition = stackPanelCurrentHeight - MAX_FRAME_HEIGHT;
                     }
                     else
                     {
                         var correction = i == 1 ? 20 : 15;
                         cursorFramePosition = stackPanelLastHeight - correction;
-                    }
-                    
+                    }               
                     cursorPositionNotifier.cursorFramePositionChanged(cursorFramePosition);
-                    //MessageBox.Show(getDesiredHeight(flowViewer).ToString());
                 }
                 stackPanelLastHeight = stackPanelCurrentHeight;
             }
-            //return flowViewer;
         }
 
         public List<FlowDocumentScrollViewer> createPrintableTreatmentPlan(Dictionary<string, List<string>> selectedTeeth)
@@ -108,8 +100,6 @@ namespace Arches.view
             listParts.Add(flowViewer);
             return listParts;
         }
-
-       
 
         private bool isInvalidHeight(FlowDocumentScrollViewer flowViewer)
         {
