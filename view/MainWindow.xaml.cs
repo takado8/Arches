@@ -29,15 +29,11 @@ namespace Arches
 
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
             pdfService = new TreatmentPlanPdfService();
+            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
+               stackPanel));
             treeView.ItemsSource = treatmentsListViewModel.items;
             treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;            
             stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
-               stackPanel));        
         }
 
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
