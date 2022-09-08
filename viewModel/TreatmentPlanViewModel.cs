@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows;
+using Arches.service;
+using System;
 
 namespace Arches.viewModel
 {
@@ -79,6 +81,7 @@ namespace Arches.viewModel
             stackPanel.Children.Add(treatmentPlan);
             treatmentPlanGenerator.createTreatmentPlan(selectedTeethDescriptionsFiltered,
                 selectedToothCode, treatmentPlan);
+            stackPanel.UpdateLayout();
         }
 
         private Dictionary<string, List<string>> getSelectedTeethDescriptions()

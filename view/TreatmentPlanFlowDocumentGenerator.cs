@@ -12,7 +12,7 @@ namespace Arches.view
     {
         INotifyCursorFramePosition cursorPositionNotifier;
         private StackPanel stackPanel;
-        private const double MAX_FRAME_HEIGHT = 540;
+        private const double MAX_FRAME_HEIGHT = 450;
         public TreatmentPlanFlowDocumentGenerator(INotifyCursorFramePosition cursorPositionNotifier, StackPanel stackPanel)
         {
             this.cursorPositionNotifier = cursorPositionNotifier;
@@ -28,7 +28,6 @@ namespace Arches.view
             flowViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             flowViewer.Document = flowDocument;
             double cursorFramePosition = 0;
-            double stackPanelLastHeight = Utils.getDesiredHeight(stackPanel);
             int i = 0;
             foreach (var keyValuePair in selectedTeeth)
             {
@@ -45,26 +44,15 @@ namespace Arches.view
                 }
                 mainListItem.Blocks.Add(subList);
                 mainList.ListItems.Add(mainListItem);
-
-                var stackPanelCurrentHeight = Utils.getDesiredHeight(stackPanel);
-                var elementHeight = stackPanelCurrentHeight - stackPanelLastHeight;
-
                 if (keyValuePair.Key.Equals(selectedToothCode) && selectedTeeth.Count > 1)
                 {
                     mainListItem.BorderThickness = new Thickness(1);
                     mainListItem.BorderBrush = Constants.getCursorFrameBrush();
-                    if (elementHeight > MAX_FRAME_HEIGHT)
-                    {
-                        cursorFramePosition = stackPanelCurrentHeight - MAX_FRAME_HEIGHT;
-                    }
-                    else
-                    {
-                        var correction = i == 1 ? 20 : 15;
-                        cursorFramePosition = stackPanelLastHeight - correction;
-                    }               
+                    var stackPanelCurrentHeight = Utils.getDesiredHeight(stackPanel);
+                    
+                    cursorFramePosition = stackPanelCurrentHeight - MAX_FRAME_HEIGHT;    
                     cursorPositionNotifier.cursorFramePositionChanged(cursorFramePosition);
                 }
-                stackPanelLastHeight = stackPanelCurrentHeight;
             }
         }
 

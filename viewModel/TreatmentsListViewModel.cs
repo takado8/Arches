@@ -12,7 +12,7 @@ namespace Arches.viewModel
     {
         public ObservableCollection<TreeViewItem> items { get; } = new();
         private SQLiteDataStorage sqliteDataStorage = new();
-        private ITreeViewItemSelected treeViewItemSelected;
+        private ITreeViewItemSelected treeViewItemSelectedCallback;
         public TreeViewItem? selectedParentItem = null;
         private double treeViewWidth;
         public bool parentItemSelectedCallbackLocked = false;
@@ -20,7 +20,7 @@ namespace Arches.viewModel
         public TreatmentsListViewModel(double treeViewWidth, ITreeViewItemSelected treeViewItemSelected)
         {
             this.treeViewWidth = treeViewWidth;
-            this.treeViewItemSelected = treeViewItemSelected;
+            this.treeViewItemSelectedCallback = treeViewItemSelected;
             var itemsFromDb = sqliteDataStorage.getItems();
             if (itemsFromDb != null)
             {
@@ -160,7 +160,7 @@ namespace Arches.viewModel
             {
                 itemBorder.Background = Constants.getSelectedItemBrush();
             }
-            treeViewItemSelected.treeViewChildItemSelected(item);
+            treeViewItemSelectedCallback.treeViewChildItemSelected(item);
             e.Handled = true;
         }
         public void TreeView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
