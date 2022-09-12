@@ -9,6 +9,7 @@ namespace Arches.model
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        [Unique]
         public string description { get; set; }
 
         [ForeignKey(typeof(TreatmentCategory))]

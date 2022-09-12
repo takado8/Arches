@@ -88,5 +88,17 @@ namespace Arches.service
             await connection.QueryAsync<TreatmentCategory>("DELETE FROM treatmentsCategories WHERE header='" + itemHeader + "';");
             await connection.QueryAsync<Treatment>("DELETE FROM treatments WHERE treatmentCategoryId=" + treatmentCategory.Id + ";");
         }
+
+        public bool isTreatmentInDb(string treatmentDescription)
+        {
+            var task = connection.QueryAsync<Treatment>("SELECT * FROM treatments WHERE description='" + treatmentDescription + "';");
+            task.Wait();
+            List<Treatment>? fromDb = task.Result;
+            if (fromDb != null && fromDb.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

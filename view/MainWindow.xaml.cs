@@ -144,7 +144,11 @@ namespace Arches
                         selectedNew.IsSelected = false;
                     }
                 }
-            }   
+            }
+            else
+            {
+                MessageBox.Show("Usuwanie pozycji z listy jest możliwe tylko w nowym dokumencie. Zapisz dokument i otwórz nowy aby dokonać zmian.", "Nie można usunąć");
+            }
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)

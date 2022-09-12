@@ -69,12 +69,13 @@ namespace Arches.viewModel
 
         public bool updateItem(TreeViewItem parentItem, string newChildItemDescription)
         {
-            if (parentItem != null && !string.IsNullOrWhiteSpace(newChildItemDescription))
+            if (parentItem != null && !string.IsNullOrWhiteSpace(newChildItemDescription) &&
+                    !sqliteDataStorage.isTreatmentInDb(newChildItemDescription))
             {
                 var parentDescription = ((TextBlock)((Border)parentItem.Header).Child).Text;
                 TreatmentCategory? fromDb = sqliteDataStorage.getItem(parentDescription);
                 if (fromDb != null)
-                { 
+                {
                     TreeViewItem childItem = new() { Header = makeTextBlock(newChildItemDescription) };
                     childItem.PreviewMouseLeftButtonDown += ChildItem_PreviewMouseLeftButtonDown;
                     parentItem.Items.Add(childItem);
