@@ -6,27 +6,12 @@ namespace Arches.service
 {
     internal static class FilePathBrowser
     {
-        private static string initialDirectory = System.IO.Path.Join(Environment.CurrentDirectory, "Zapisane Pliki");
+        private static string initialDirectory = Path.Join(Environment.CurrentDirectory, "Zapisane Pliki");
        
-        public static string? showSaveFileDialog(string name, string surname, string birthdate)
+        public static string? showSaveFileDialog()
         {
-            string filename;
-            if (isValidCredentials(name, surname))
-            {
-                if (birthdate == null)
-                {
-                    birthdate = "";
-                }
-                else if (!string.IsNullOrEmpty(birthdate))
-                {
-                    birthdate = "_ur_" + birthdate;
-                }
-                filename = surname + "_" + name + birthdate + "_dnia_" + DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss"); ;
-            }
-            else
-            {
-                filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss");
-            }
+            string filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss");
+            
             createDefaultDirectory();
             
             var dialog = new Microsoft.Win32.SaveFileDialog
@@ -40,7 +25,7 @@ namespace Arches.service
             if (result == true)
             {
                 filename = dialog.FileName;
-                var directory = System.IO.Path.GetDirectoryName(filename);
+                var directory = Path.GetDirectoryName(filename);
                 if (Directory.Exists(directory))
                 {
                     return filename;
@@ -53,15 +38,6 @@ namespace Arches.service
             }
             MessageBox.Show("Błąd, plik nie został zapisany!", "Błąd zapisu!");
             return null;
-        }
-
-        private static bool isValidCredentials(string name, string surname)
-        {
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname))
-            {
-                return false;
-            }
-            return true;
         }
 
         private static void createDefaultDirectory()

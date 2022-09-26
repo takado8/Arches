@@ -174,7 +174,7 @@ namespace Arches
 
         private void MenuItemExit_Click(object sender, RoutedEventArgs e)
         {
-            if (unsavedFileSafety())
+            if (isFileSavedOrRejected())
             {
                 Environment.Exit(0);
             }
@@ -188,7 +188,7 @@ namespace Arches
 
         private string? saveFile()
         {
-            var path = FilePathBrowser.showSaveFileDialog("placeholder1", "placeholder2", "placeholder3");
+            var path = FilePathBrowser.showSaveFileDialog();
             if (path != null)
             {
                 clearAllChildSelection();
@@ -205,20 +205,24 @@ namespace Arches
 
         private void MenuItemNewFile_Click(object sender, RoutedEventArgs e)
         {
-            if (unsavedFileSafety())
+            if (isFileSavedOrRejected())
             {
                 newFile();
             }
         }
 
-        private bool unsavedFileSafety()
+        private bool isFileSavedOrRejected()
         {
             if (!isFileSaved)
             {
-                var result = MessageBox.Show("Plik nie jest zapisany, zapisać?", "Zapisać plik?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show("Plik nie jest zapisany, zapisać?", "Zapisać plik?", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
                 if (result == MessageBoxResult.Yes)
                 {
                     if (saveFile() == null) return false;
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    return false;
                 }
             }
             return true;
@@ -231,5 +235,12 @@ namespace Arches
             isFileSaved = false;
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!isFileSavedOrRejected())
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Arches" Height="660" Width="1085"
         Background="WhiteSmoke" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"
+        Closing="Window_Closing"
         >
     <Grid>
         <Grid.ColumnDefinitions>
