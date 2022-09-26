@@ -366,7 +366,7 @@
 
         </Grid>
 
-        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,51,0,101" FontSize="16" HorizontalAlignment="Center" Width="264">
+        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,0,101" FontSize="16" HorizontalAlignment="Center" Width="264">
             <TreeView.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -380,27 +380,14 @@
         <TextBox x:Name="textBoxNewListItem" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,57" TextWrapping="Wrap" Text="Nowy zabieg..." VerticalAlignment="Bottom" Width="264" Height="32" FontSize="16" Grid.ColumnSpan="2" GotFocus="textBoxNewListItem_GotFocus" KeyDown="textBoxNewListItem_KeyDown"/>
         <Button x:Name="buttonAdd" Content="Dodaj do listy" Margin="10,0,124,15" VerticalAlignment="Bottom" IsCancel="True" Height="30"  FontSize="14" Click="buttonAdd_Click"/>
         <Button x:Name="buttonDelete" Content="Usuń" HorizontalAlignment="Left" Margin="173,0,0,15" VerticalAlignment="Bottom" IsCancel="True" Height="30" Width="100" Click="buttonDelete_Click" FontSize="14"/>
-        <Border BorderThickness="0.5" x:Name="borderStackPanel" CornerRadius="5" Background="White" BorderBrush="#666666" Grid.Column="2" Margin="318,24,34,29" Grid.ColumnSpan="2">
+        <Border BorderThickness="0.5" x:Name="borderStackPanel" CornerRadius="5" Background="White" BorderBrush="#666666" Grid.Column="2" Margin="318,20,34,29" Grid.ColumnSpan="2">
             <ScrollViewer x:Name="scrollViewerStackPanel" Margin="2,2,2,2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="stackPanel" Background="White" CanVerticallyScroll="True" PreviewMouseWheel="stackPanel_PreviewMouseWheel"/>
             </ScrollViewer>
         </Border>
-        <TextBox x:Name="textBoxName" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="6,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="28"/>
-        <TextBox x:Name="textBoxSurname" Grid.Column="2" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="63,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="28"/>
-        <DatePicker x:Name="datepickerBirthday" Background="White" Text="Data urodzenia" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="201,24,0,0" VerticalAlignment="Top" Height="28" Grid.Column="2">
-            <DatePicker.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                    <Setter Property="Background" Value="White"/>
-                </Style>
 
-            </DatePicker.Resources>
-        </DatePicker>
-        <Label Grid.Column="1" Content="Imię" HorizontalAlignment="Left" Margin="1,2,0,0" VerticalAlignment="Top" Height="27"/>
-        <Label Grid.Column="2" Content="Nazwisko" HorizontalAlignment="Left" Margin="58,2,0,0" VerticalAlignment="Top" Height="27"/>
-        <Label Grid.Column="2" Content="Data urodzenia" HorizontalAlignment="Left" Margin="196,2,0,0" VerticalAlignment="Top" Height="27"/>
-        <Button Content="Nowy dokument" HorizontalAlignment="Left" Height="30" Margin="84,10,0,0" VerticalAlignment="Top" Width="107" Click="MenuItemNewFile_Click"/>
-        <Button Content="Zapisz" HorizontalAlignment="Left" Height="30" Margin="9,10,0,0" VerticalAlignment="Top" Width="61" Click="MenuItemSave_Click"/>
+        <Button Content="Nowy dokument" HorizontalAlignment="Left" Height="30" Margin="113,20,0,0" VerticalAlignment="Top" Width="175" Click="MenuItemNewFile_Click" Grid.Column="2"/>
+        <Button Content="Zapisz" HorizontalAlignment="Left" Height="30" Margin="21,20,0,0" VerticalAlignment="Top" Width="155" Click="MenuItemSave_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
 
     </Grid>
 

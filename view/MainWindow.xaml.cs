@@ -188,7 +188,7 @@ namespace Arches
 
         private string? saveFile()
         {
-            var path = FilePathBrowser.showSaveFileDialog(textBoxName.Text, textBoxSurname.Text, datepickerBirthday.Text);
+            var path = FilePathBrowser.showSaveFileDialog("placeholder1", "placeholder2", "placeholder3");
             if (path != null)
             {
                 clearAllChildSelection();
@@ -228,9 +228,6 @@ namespace Arches
         {
             clearAllChildSelection();
             treatmentPlanViewModel.clear();
-            textBoxName.Text = "";
-            textBoxSurname.Text = "";
-            datepickerBirthday.Text = "";
             isFileSaved = false;
         }
 
