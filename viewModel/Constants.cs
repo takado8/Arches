@@ -4,7 +4,8 @@ namespace Arches.viewModel
 {
     internal static class Constants
     {
-        public const string textBoxPlaceholder = "Nowy zabieg...";
+        public const string textBoxPlaceholderNewCategory = "Nowa kategoria...";
+        public const string textBoxPlaceholderNewTreatment = "Nowy zabieg...";
 
         public static Brush getUnselectedItemBrush()
         {

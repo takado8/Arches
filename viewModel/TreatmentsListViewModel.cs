@@ -13,14 +13,17 @@ namespace Arches.viewModel
         public ObservableCollection<TreeViewItem> items { get; } = new();
         private SQLiteDataStorage sqliteDataStorage = new();
         private ITreeViewItemSelected treeViewItemSelectedCallback;
+        private ISetNewItemTextBoxText IsetNewItemTextBoxText;
         public TreeViewItem? selectedParentItem = null;
         private double treeViewWidth;
         public bool parentItemSelectedCallbackLocked = false;
 
-        public TreatmentsListViewModel(double treeViewWidth, ITreeViewItemSelected treeViewItemSelected)
+        public TreatmentsListViewModel(double treeViewWidth, ITreeViewItemSelected treeViewItemSelected,
+            ISetNewItemTextBoxText IsetNewItemTextBoxText)
         {
             this.treeViewWidth = treeViewWidth;
             this.treeViewItemSelectedCallback = treeViewItemSelected;
+            this.IsetNewItemTextBoxText = IsetNewItemTextBoxText;
             var itemsFromDb = sqliteDataStorage.getItems();
             if (itemsFromDb != null)
             {
@@ -47,7 +50,8 @@ namespace Arches.viewModel
 
         public bool addItem(string newTreatmentDescription)
         {
-            if (string.IsNullOrEmpty(newTreatmentDescription) || string.Equals(Constants.textBoxPlaceholder, newTreatmentDescription))
+            if (string.IsNullOrEmpty(newTreatmentDescription) || string.Equals(Constants.textBoxPlaceholderNewCategory, newTreatmentDescription) 
+                || string.Equals(Constants.textBoxPlaceholderNewTreatment, newTreatmentDescription))
             {
                 return false;
             }
@@ -142,6 +146,8 @@ namespace Arches.viewModel
             }
             ((Border)item.Header).Background = Constants.getSelectedCategoryItemBrush();
             selectedParentItem = item;
+            IsetNewItemTextBoxText.setTextBoxText(Constants.textBoxPlaceholderNewTreatment);
+
         }
         private void ChildItem_Selected(object sender, RoutedEventArgs e)
         {
@@ -164,13 +170,24 @@ namespace Arches.viewModel
             treeViewItemSelectedCallback.treeViewChildItemSelected(item);
             e.Handled = true;
         }
-        public void TreeView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        { 
+
+        private bool unselectParentItem()
+        {
             if (selectedParentItem != null)
             {
                 ((Border)selectedParentItem.Header).Background = Constants.getUnselectedItemBrush();
                 selectedParentItem.IsSelected = false;
                 selectedParentItem = null;
+                return true;
+            }
+            return false;
+        }
+
+        public void TreeView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (unselectParentItem())
+            {
+                IsetNewItemTextBoxText.setTextBoxText(Constants.textBoxPlaceholderNewCategory);
             }
         }
     }

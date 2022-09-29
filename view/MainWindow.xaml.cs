@@ -15,7 +15,7 @@ namespace Arches
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, ITreeViewItemSelected, INotifyCursorFramePosition
+    public partial class MainWindow : Window, ITreeViewItemSelected, INotifyCursorFramePosition, ISetNewItemTextBoxText
     {
         TreatmentsListViewModel treatmentsListViewModel;
         TreatmentPlanViewModel treatmentPlanViewModel;
@@ -27,13 +27,19 @@ namespace Arches
         {
             InitializeComponent();
 
-            treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this);
+            treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this, this);
             pdfService = new TreatmentPlanPdfService();
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
                stackPanel));
             treeView.ItemsSource = treatmentsListViewModel.items;
-            treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;            
+            treeView.MouseLeftButtonDown += treatmentsListViewModel.TreeView_MouseLeftButtonDown;
             stackPanel.SizeChanged += ScrollViewerStackPanel_SizeChanged;
+            textBoxNewListItem.Text = Constants.textBoxPlaceholderNewCategory;
+        }
+
+        public void setTextBoxText(string txt)
+        {
+            textBoxNewListItem.Text = txt;
         }
 
         private void ScrollViewerStackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -153,7 +159,8 @@ namespace Arches
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(textBoxNewListItem.Text.Equals(Constants.textBoxPlaceholder))
+            if(textBoxNewListItem.Text.Equals(Constants.textBoxPlaceholderNewTreatment) ||
+               textBoxNewListItem.Text.Equals(Constants.textBoxPlaceholderNewCategory))
             {
                 textBoxNewListItem.Text = "";
             }
@@ -170,14 +177,6 @@ namespace Arches
         private void MenuItemSave_Click(object sender, RoutedEventArgs e)
         {
             saveFile();
-        }
-
-        private void MenuItemExit_Click(object sender, RoutedEventArgs e)
-        {
-            if (isFileSavedOrRejected())
-            {
-                Environment.Exit(0);
-            }
         }
 
         private void stackPanel_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -240,6 +239,21 @@ namespace Arches
             if (!isFileSavedOrRejected())
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void textBoxNewListItem_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxNewListItem.Text))
+            {
+                string txt = textBoxNewListItem.Text.Substring(1);
+                string firstChar = textBoxNewListItem.Text[0].ToString();
+                if (txt.Equals(Constants.textBoxPlaceholderNewTreatment) ||
+                 txt.Equals(Constants.textBoxPlaceholderNewCategory))
+                {
+                    textBoxNewListItem.Text = firstChar;
+                    textBoxNewListItem.CaretIndex = 1;
+                }
             }
         }
     }
