@@ -147,8 +147,8 @@ namespace Arches.viewModel
             ((Border)item.Header).Background = Constants.getSelectedCategoryItemBrush();
             selectedParentItem = item;
             IsetNewItemTextBoxText.setTextBoxText(Constants.textBoxPlaceholderNewTreatment);
-
         }
+
         private void ChildItem_Selected(object sender, RoutedEventArgs e)
         {
             e.Handled = true;

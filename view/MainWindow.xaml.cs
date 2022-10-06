@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using Arches.tests;
 
 namespace Arches
 {
@@ -26,7 +28,6 @@ namespace Arches
         public MainWindow()
         {
             InitializeComponent();
-
             treatmentsListViewModel = new TreatmentsListViewModel(treeView.Width, this, this);
             pdfService = new TreatmentPlanPdfService();
             treatmentPlanViewModel = new TreatmentPlanViewModel(this, new TreatmentPlanFlowDocumentGenerator(this,
@@ -93,23 +94,44 @@ namespace Arches
             bool result;
             var selected = treatmentsListViewModel.selectedParentItem;
             string newItemDescription = textBoxNewListItem.Text;
-            if (selected == null)
+            if (isNewItemNameValid(newItemDescription))
             {
-                result = treatmentsListViewModel.addItem(newItemDescription);
+                if (selected == null)
+                {
+                    result = treatmentsListViewModel.addItem(newItemDescription);
+                }
+                else
+                {
+                    result = treatmentsListViewModel.updateItem(selected, newItemDescription);
+                }
+                if (result)
+                {
+                    textBoxNewListItem.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Nie udało się dodać zabiegu. Sprawdź czy zabieg nie znajduje się już na liście.",
+                        "Błąd");
+                }
             }
             else
             {
-                result = treatmentsListViewModel.updateItem(selected, newItemDescription);
+                MessageBox.Show("Nazwa zawiera niedozwolone znaki.");
             }
-            if (result)
+        }
+
+        private bool isNewItemNameValid(string newItemName)
+        {
+            var regex = @"[^a-zA-Z0-9\.:\-_/)( ]";
+            var matches = Regex.Matches(newItemName, regex);
+            foreach (Match match in matches)
             {
-                textBoxNewListItem.Text = "";
+                if (match.Success)
+                {
+                    return false;
+                }
             }
-            else
-            {
-                MessageBox.Show("Nie udało się dodać zabiegu. Sprawdź czy zabieg nie znajduje się już na liście.",
-                    "Błąd");
-            }
+            return true;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
@@ -244,15 +266,29 @@ namespace Arches
 
         private void textBoxNewListItem_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBoxNewListItem.Text))
+            string txtRaw = textBoxNewListItem.Text;
+            if (!string.IsNullOrEmpty(txtRaw) && txtRaw.Length > 2)
             {
-                string txt = textBoxNewListItem.Text.Substring(1);
-                string firstChar = textBoxNewListItem.Text[0].ToString();
-                if (txt.Equals(Constants.textBoxPlaceholderNewTreatment) ||
-                 txt.Equals(Constants.textBoxPlaceholderNewCategory))
+                var changes = e.Changes;
+                int changeIndex = -1;
+                foreach (var change in changes)
                 {
-                    textBoxNewListItem.Text = firstChar;
-                    textBoxNewListItem.CaretIndex = 1;
+                    changeIndex = change.Offset;
+                }
+                if (changeIndex > -1 && changeIndex < txtRaw.Length)
+                {
+                    string txt = txtRaw.Substring(0, changeIndex);
+                    if (changeIndex < txtRaw.Length - 1)
+                    {
+                        txt += txtRaw.Substring(changeIndex + 1);
+                    }
+                    if (txt.Equals(Constants.textBoxPlaceholderNewTreatment) ||
+                     txt.Equals(Constants.textBoxPlaceholderNewCategory))
+                    {
+                        string newChar = txtRaw[changeIndex].ToString();
+                        textBoxNewListItem.Text = newChar;
+                        textBoxNewListItem.CaretIndex = 1;
+                    }
                 }
             }
         }
