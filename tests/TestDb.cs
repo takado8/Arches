@@ -68,6 +68,8 @@ namespace Arches.tests
                 throw new Exception("treatment description doesn't match. Expected: " + treatmentDescritpion2 +
                     "\nActual: " + resultFromDb.treatments[1].description);
             }
+            // cleanup
+            sqlite.deleteTreatmentCategoryAsync(categoryHeader);
             MessageBox.Show("Test OK.");
         }
     }
