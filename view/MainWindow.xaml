@@ -367,7 +367,7 @@
 
         </Grid>
 
-        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,0,101" FontSize="16" HorizontalAlignment="Center" Width="264">
+        <TreeView x:Name="treeView" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,20,0,101" FontSize="16" HorizontalAlignment="Center" Width="264" KeyDown="treeView_KeyDown">
             <TreeView.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

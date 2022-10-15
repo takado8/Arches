@@ -122,7 +122,7 @@ namespace Arches
 
         private bool isNewItemNameValid(string newItemName)
         {
-            var regex = @"[^a-zA-Z0-9\.:\-_/)( ]";
+            var regex = @"[^a-zA-Z0-9\.:\-_/)( ąęółżźćńśĄĘÓŁŻŹĆŃŚ]";
             var matches = Regex.Matches(newItemName, regex);
             foreach (Match match in matches)
             {
@@ -140,6 +140,11 @@ namespace Arches
         }
 
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            deleteSelectedItems();
+        }
+
+        private void deleteSelectedItems()
         {
             if (treatmentPlanViewModel.isSelectionEmpty())
             {
@@ -212,6 +217,15 @@ namespace Arches
             if (e.Key == Key.Enter)
             {
                 addTreatmentToList();
+            }
+        }
+
+
+        private void treeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                deleteSelectedItems();
             }
         }
 
@@ -316,5 +330,6 @@ namespace Arches
                 }
             }
         }
+
     }
 }
