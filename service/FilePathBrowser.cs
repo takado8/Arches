@@ -10,7 +10,7 @@ namespace Arches.service
        
         public static string? showSaveFileDialog()
         {
-            string filename = DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss");
+            string filename = DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss");
             
             createDefaultDirectory();
             

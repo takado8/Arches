@@ -144,32 +144,46 @@ namespace Arches
             if (treatmentPlanViewModel.isSelectionEmpty())
             {
                 List<TreeViewItem> selectedChildren = new();
+                string itemsDescriptions = "";
 
                 foreach (TreeViewItem parentItem in treatmentsListViewModel.items)
                 {
                     foreach (TreeViewItem childItem in parentItem.Items)
                     {
-                        if (((Border)childItem.Header).Background == Constants.getSelectedItemBrush())
+                        var childItemBorder = (Border)childItem.Header;
+                        if (childItemBorder.Background == Constants.getSelectedItemBrush())
                         {
+                            var childItemTextBlock = (TextBlock)childItemBorder.Child;
+                            itemsDescriptions += childItemTextBlock.Text + ",\n";
                             selectedChildren.Add(childItem);
                         }
                     }
                 }
                 if (selectedChildren.Count > 0)
                 {
-                    foreach (var item in selectedChildren)
+                    string warningMsg = "Usunąć wybrane pozycje?\n" + itemsDescriptions.Remove(itemsDescriptions.Length - 2);
+                    if (deleteItemsMessageBoxWarning(warningMsg))
                     {
-                        treatmentsListViewModel.deleteTreatmentItem(item);
+                        foreach (var item in selectedChildren)
+                        {
+                            treatmentsListViewModel.deleteTreatmentItem(item);
+                        }
                     }
                 }
                 else
                 {
                     var selected = (TreeViewItem)treeView.SelectedItem;
-                    treatmentsListViewModel.deleteTreatmentCategoryItem(selected);
-                    var selectedNew = (TreeViewItem)treeView.SelectedItem;
-                    if (selectedNew != null)
+                    var selectedBorder = (Border)selected.Header;
+                    var selectedTextblock = (TextBlock)selectedBorder.Child;
+                    string warningMsg = "Usunąć kategorię '" + selectedTextblock.Text + "' razem ze wszystkimi elementami które zawiera?";
+                    if (deleteItemsMessageBoxWarning(warningMsg))
                     {
-                        selectedNew.IsSelected = false;
+                        treatmentsListViewModel.deleteTreatmentCategoryItem(selected);
+                        var selectedNew = (TreeViewItem)treeView.SelectedItem;
+                        if (selectedNew != null)
+                        {
+                            selectedNew.IsSelected = false;
+                        }
                     }
                 }
             }
@@ -177,6 +191,11 @@ namespace Arches
             {
                 MessageBox.Show("Usuwanie pozycji z listy jest możliwe tylko w nowym dokumencie. Zapisz dokument i otwórz nowy aby dokonać zmian.", "Nie można usunąć");
             }
+        }
+
+        private bool deleteItemsMessageBoxWarning(string message)
+        {
+            return MessageBox.Show(message, "Usuwanie pozycji", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes;
         }
 
         private void textBoxNewListItem_GotFocus(object sender, RoutedEventArgs e)
@@ -216,12 +235,17 @@ namespace Arches
                 treatmentPlanViewModel.deselectTooth();
                 pdfService.saveTreatmentPlanAsPdfFile(path, imageGrid, treatmentPlanViewModel.getPrintableTreatmentPlan());
                 isFileSaved = true;
-                
-                string argument = "/select, \"" + path + "\"";
-                Process.Start("explorer.exe", argument);
+
+                openDirAndSelectSavedFile(path);
                 return path;
             }
             return null;
+        }
+
+        private void openDirAndSelectSavedFile(string path)
+        {
+            string argument = "/select, \"" + path + "\"";
+            Process.Start("explorer.exe", argument);
         }
 
         private void MenuItemNewFile_Click(object sender, RoutedEventArgs e)
