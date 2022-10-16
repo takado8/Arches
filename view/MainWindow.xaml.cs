@@ -218,6 +218,10 @@ namespace Arches
             {
                 addTreatmentToList();
             }
+            else if (e.Key == Key.Delete)
+            {
+                deleteSelectedItems();
+            }
         }
 
 
