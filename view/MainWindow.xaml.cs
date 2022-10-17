@@ -94,7 +94,8 @@ namespace Arches
             bool result;
             var selected = treatmentsListViewModel.selectedParentItem;
             string newItemDescription = textBoxNewListItem.Text;
-            if (isNewItemNameValid(newItemDescription))
+            string validation = validateNewItemName(newItemDescription);
+            if (string.IsNullOrEmpty(validation))
             {
                 if (selected == null)
                 {
@@ -116,22 +117,24 @@ namespace Arches
             }
             else
             {
-                MessageBox.Show("Nazwa zawiera niedozwolone znaki.");
+                MessageBox.Show("Nazwa zawiera niedozwolone znaki: '" +  validation + "'");
             }
         }
 
-        private bool isNewItemNameValid(string newItemName)
+        private string validateNewItemName(string newItemName)
         {
-            var regex = @"[^a-zA-Z0-9\.:\-_/)( ąęółżźćńśĄĘÓŁŻŹĆŃŚ]";
+            var regex = @"[^a-zA-Z0-9\.:\-_/)( ąęółżźćńśĄĘÓŁŻŹĆŃŚ+]";
             var matches = Regex.Matches(newItemName, regex);
             foreach (Match match in matches)
             {
                 if (match.Success)
                 {
-                    return false;
+                    return match.Value;
+                    //return false;
                 }
             }
-            return true;
+            //return true;
+            return "";
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
