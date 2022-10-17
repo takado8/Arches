@@ -123,7 +123,7 @@ namespace Arches
 
         private string validateNewItemName(string newItemName)
         {
-            var regex = @"[^a-zA-Z0-9\.:\-_/)( ąęółżźćńśĄĘÓŁŻŹĆŃŚ+]";
+            var regex = @"[^a-zA-Z0-9\.:\-_/)( ąęółżźćńśĄĘÓŁŻŹĆŃŚ+,?]";
             var matches = Regex.Matches(newItemName, regex);
             foreach (Match match in matches)
             {
